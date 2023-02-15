@@ -8,10 +8,9 @@ class InputValidator
 {
 public:
 	static void GetUserInput(int& input);
-	void none() {};
+	std::string error = "Invalid input! Please try again: ";
 private:
 	template<class T> static void GenericUserInput(T& input);
-	std::string error = "Invalid input! Please try again: ";
 
 	static void ClearCin() 
 	{

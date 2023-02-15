@@ -1,4 +1,4 @@
-#include "inputValidator.h"
+#include "UserInput.h"
 #include<string>
 
 using std::string;
@@ -10,7 +10,7 @@ int main()
 	char testChar;
 	string testString;
 
-	InputValidator::GetUserInput(testInt);
+	InputValidator::GenericUserInput(testInt, "Please input a number: ");
 	std::cout << "Test int: " << testInt << std::endl;
 
 	return 0;

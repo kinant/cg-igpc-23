@@ -30,8 +30,7 @@ struct Level
 enum class EPlayerState : int 
 {
     NoKey,
-    HasKey,
-    Exited
+    HasKey
 };
 
 enum class EMapTile : char {

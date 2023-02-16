@@ -9,6 +9,8 @@ using std::vector;
 
 const char kPlayerSymbol = '@';
 
+using ptrMapTile = char*;
+
 struct Coordinates 
 {
     int x{};
@@ -105,12 +107,15 @@ int main()
 
     Player player = { Coordinates{1,1}, EPlayerState::NoKey };
     
-    while(true) 
+    while(player.GetState() != EPlayerState::Exited) 
     {
         system("CLS");
         DrawLevel(level, player);
         UpdatePlayerPosition(level, player);
     }
+    system("CLS");
+    DrawLevel(level, player);
+    cout << "YOU COMPLETED THE LEVEL!";
 }
 
 int GetIndexFromCoordinates(const Coordinates& c, int width)
@@ -130,6 +135,7 @@ void DrawLevel(const Level& level, const Player& player)
             }
             cout << level.map[GetIndexFromCoordinates({x, y}, level.dimensions.width)];
         }
+        cout << endl;
         cout << endl;
     }
 }
@@ -172,22 +178,28 @@ void UpdatePlayerPosition(Level& level, Player& player)
     }
 
     int index = GetIndexFromCoordinates(newPosition, level.dimensions.width);
+    ptrMapTile mapTile = &level.map[index];
 
-    if (level.map[index] == (char)EMapTile::Empty)
+    if (*mapTile == (char)EMapTile::Empty)
     {
         player.SetPosition(newPosition);
     }
-    else if (level.map[index] == (char)EMapTile::Key ) 
+    else if (*mapTile == (char)EMapTile::Key ) 
     {
         player.SetState(EPlayerState::HasKey);
-        level.map[index] = (char)EMapTile::Empty;
+        *mapTile = (char)EMapTile::Empty;
         player.SetPosition(newPosition);
     }
-    else if (level.map[index] == (char)EMapTile::Door 
+    else if (*mapTile == (char)EMapTile::Door 
         && player.GetState() == EPlayerState::HasKey) 
     {
-        level.map[index] = (char)EMapTile::Empty;
+        *mapTile = (char)EMapTile::Empty;
         player.SetState(EPlayerState::NoKey);
+        player.SetPosition(newPosition);
+    }
+    else if (*mapTile == (char)EMapTile::Goal) {
+        *mapTile = (char)EMapTile::Empty;
+        player.SetState(EPlayerState::Exited);
         player.SetPosition(newPosition);
     }
 }

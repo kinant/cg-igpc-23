@@ -19,7 +19,7 @@ namespace Level
 
     struct FLevel
     {
-        vector<char> Map;
+        char* Map;
         FLevelDimensions Dimensions;
     };
 

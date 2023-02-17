@@ -22,39 +22,48 @@ double randomDouble()
 
 int main() 
 {
-	srand(time(0));
+	srand((unsigned) time(0));
 
-	constexpr int sizeSmall = 10;
-	constexpr int sizeMedium = 50;
-	constexpr int sizeLarge = 100;
+	int sizeSmall = (3 + rand() % 10);
+	int sizeMedium = (25 + rand() % 50);
+	int sizeLarge = (50 + rand() % 100);
 
-	double arrayDouble[sizeSmall];
-	PopulateArray(arrayDouble, sizeSmall);
-	PrintArray(arrayDouble, sizeSmall);
-
-	cout << endl;
-	cout << "Max Value of Above Array is: " << (double)GetMax(arrayDouble, sizeSmall) << endl;
-	cout << endl;
-
-	float arrayFloat[sizeMedium];
-	PopulateArray(arrayFloat, sizeMedium);
-	PrintArray(arrayFloat, sizeMedium);
+	double* ptArrayDouble = new double[sizeSmall];
+	PopulateArray<double>(ptArrayDouble, sizeSmall);
+	PrintArray<double>(ptArrayDouble, sizeSmall);
 
 	cout << endl;
-	cout << "Max Value of Above Array is: " << (float)GetMax(arrayFloat, sizeMedium) << endl;
+	cout << "Max Value of Above Array is: " << (double)GetMax(ptArrayDouble, sizeSmall) << endl;
+	cout << endl;
+	
+	delete[] ptArrayDouble;
+	ptArrayDouble = nullptr;
+
+	float* ptArrayFloat = new float[sizeMedium];
+	PopulateArray<float>(ptArrayFloat, sizeMedium);
+	PrintArray<float>(ptArrayFloat, sizeMedium);
+
+	cout << endl;
+	cout << "Max Value of Above Array is: " << (float)GetMax(ptArrayFloat, sizeMedium) << endl;
 	cout << endl;
 
-	int arrayInt[sizeLarge];
-	PopulateArray(arrayInt, sizeLarge);
-	PrintArray(arrayInt, sizeLarge);
+	delete[] ptArrayFloat;
+	ptArrayFloat = nullptr;
+
+	int* ptArrayInt = new int[sizeLarge];
+	PopulateArray<int>(ptArrayInt, sizeLarge);
+	PrintArray<int>(ptArrayInt, sizeLarge);
 
 	cout << endl;
-	cout << "Max Value of Above Array is: " << (int)GetMax(arrayInt, sizeMedium) << endl;
+	cout << "Max Value of Above Array is: " << (int)GetMax(ptArrayInt, sizeLarge) << endl;
 	cout << endl;
+
+	delete[] ptArrayInt;
+	ptArrayInt = nullptr;
 }
 
 template<typename T>
-void PopulateArray(T a[], const int size)
+void PopulateArray(T* a, const int size)
 {
 	if (size == 0) 
 	{
@@ -69,7 +78,7 @@ void PopulateArray(T a[], const int size)
 }
 
 template<typename T>
-void PrintArray(T a[], const int size)
+void PrintArray(T* a, const int size)
 {
 	cout << "======== PRINTING ARRAY ========" << endl;
 
@@ -94,7 +103,7 @@ void PrintArray(T a[], const int size)
 }
 
 template<typename T>
-T GetMax(T a[], int size)
+T GetMax(T* a, int size)
 {
 	assert(size > 0);
 	T maxValue = a[0];

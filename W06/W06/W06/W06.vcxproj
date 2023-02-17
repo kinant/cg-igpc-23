@@ -128,13 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="APlayer.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="W06Game.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="APlayer.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="UserInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

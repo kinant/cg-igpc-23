@@ -1,7 +1,8 @@
 #pragma once
-#include "Level.h";
 
-using namespace Level;
+#include "Map.h"
+
+using Map::FCoordinates;
 
 enum class EPlayerState : int
 {

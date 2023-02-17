@@ -11,63 +11,61 @@ Game::Game(APlayer* Player, Level::FLevel* Level)
 
 void Game::UpdatePlayerPosition()
 {
-    /*FCoordinates NewPosition{ MPlayer.GetPosition() };
+    FCoordinates NewPosition{ MPlayer->GetPosition() };
 
     switch (UserInput::GetUserInput())
     {
-    case Input::EInput::Up:
-    {
-        NewPosition.Y--;
-        break;
-    }
-    case Input::EInput::Down:
-    {
-        NewPosition.Y++;
-        break;
-    }
-    case Input::EInput::Left:
-    {
-        NewPosition.X--;
-        break;
-    }
-    case Input::EInput::Right:
-    {
-        NewPosition.X++;
-        break;
+        case Input::EInput::Up:
+        {
+            NewPosition.Y--;
+            break;
+        }
+        case Input::EInput::Down:
+        {
+            NewPosition.Y++;
+            break;
+        }
+        case Input::EInput::Left:
+        {
+            NewPosition.X--;
+            break;
+        }
+        case Input::EInput::Right:
+        {
+            NewPosition.X++;
+            break;
+        }
+
+        default:
+            break;
     }
 
-    default:
-        break;
-    }
+    //int Index = MLevel.GetIndexFromCoordinates(NewPosition, MLevel.Dimensions.Width);
+    char& MapTile = MLevel->Level[NewPosition.Y][NewPosition.X];
 
-    int Index = MLevel.GetIndexFromCoordinates(NewPosition, MLevel.Dimensions.Width);
-    char& MapTile = MLevel.Map[Index];
-
-    if (MapTile == (char)Level::EMapTile::Empty)
+    if (MapTile == (char)Map::EMapTile::Empty)
     {
-        MPlayer.SetPosition(NewPosition);
+        MPlayer->SetPosition(NewPosition);
     }
-    else if (MapTile == (char)Level::EMapTile::Key)
+    else if (MapTile == (char)Map::EMapTile::Key)
     {
-        MPlayer.SetState(EPlayerState::HasKey);
-        MapTile = (char)Level::EMapTile::Empty;
-        MPlayer.SetPosition(NewPosition);
+        MPlayer->SetState(EPlayerState::HasKey);
+        MapTile = (char)Map::EMapTile::Empty;
+        MPlayer->SetPosition(NewPosition);
     }
-    else if (MapTile == (char)Level::EMapTile::Door
-        && MPlayer.GetState() == EPlayerState::HasKey)
+    else if (MapTile == (char)Map::EMapTile::Door
+        && MPlayer->GetState() == EPlayerState::HasKey)
     {
-        MapTile = (char)Level::EMapTile::Empty;
-        MPlayer.SetState(EPlayerState::NoKey);
-        MPlayer.SetPosition(NewPosition);
+        MapTile = (char)Map::EMapTile::Empty;
+        MPlayer->SetState(EPlayerState::NoKey);
+        MPlayer->SetPosition(NewPosition);
     }
-    else if (MapTile == (char)Level::EMapTile::Goal)
+    else if (MapTile == (char)Map::EMapTile::Goal)
     {
-        MapTile = (char)Level::EMapTile::Empty;
-        MPlayer.SetState(EPlayerState::Exited);
-        MPlayer.SetPosition(NewPosition);
+        MapTile = (char)Map::EMapTile::Empty;
+        MPlayer->SetState(EPlayerState::Exited);
+        MPlayer->SetPosition(NewPosition);
     }
-
-    DrawPlayerPosition();*/
 }
 
 void Game::DrawGame()
@@ -78,20 +76,18 @@ void Game::DrawGame()
     {
         for (int x = 0; x < MLevel->Dimensions.Width; x++) 
         {
+            if (x == MPlayer->GetPosition().X && y == MPlayer->GetPosition().Y) 
+            {
+                cout << MPlayer->PlayerIcon;
+                continue;
+            }
             cout << MLevel->Level[y][x];
         }
         cout << endl;
     }
 }
 
-void Game::DrawPlayerPosition()
-{
-    //int index = Level::FLevel::GetIndexFromCoordinates(MPlayer.GetPosition(), MLevel.Dimensions.Width);
-    //MLevel.Map[index] = APlayer::PlayerIcon;
-}
-
 bool Game::IsGameDone() const
 {
-    //return MPlayer.GetState() == EPlayerState::Exited;
-    return false;
+    return MPlayer->GetState() == EPlayerState::Exited;
 }

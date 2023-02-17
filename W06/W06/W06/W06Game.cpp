@@ -45,20 +45,12 @@ int main()
 
     Game NewGame = Game(&Player, &Level);
 
-    clock_t lastTime = clock();
+    NewGame.DrawGame();
 
-    while (true)
+    while (!NewGame.IsGameDone())
     {
-        clock_t currentTime = clock();
-        clock_t dt = currentTime - lastTime;
-
-        if (dt > CLOCKS_PER_SEC / FPS)
-        {
-            lastTime = currentTime;
-
-            //
-            NewGame.DrawGame();
-        }
+        NewGame.UpdatePlayerPosition();
+        NewGame.DrawGame();
     }
 
 }

@@ -127,7 +127,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="APlayer.cpp" />
+    <ClCompile Include="UserInput.cpp" />
     <ClCompile Include="W06Game.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="APlayer.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="UserInput.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

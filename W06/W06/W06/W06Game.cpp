@@ -1,91 +1,26 @@
 #include <iostream>
-#include <conio.h>
 #include <vector>
+#include "UserInput.h"
+#include "Level.h"
+#include "APlayer.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+using Input::UserInput;
 
-const char kPlayerSymbol = '@';
+using namespace Level;
 
-using ptrMapTile = char*;
-
-struct Coordinates 
-{
-    int x{};
-    int y{};
-};
-
-struct LevelDimensions 
-{
-    int width{};
-    int height{};
-};
-
-struct Level 
-{
-    vector<char> map;
-    LevelDimensions dimensions;
-};
-
-enum class EPlayerState : int 
-{
-    NoKey,
-    HasKey,
-    Exited
-};
-
-enum class EMapTile : char {
-    Empty = ' ',
-    HWall = '-',
-    VWall = '|',
-    Key   = '*',
-    Door  = 'D',
-    Goal  = 'X',
-    Corner = '+'
-};
-
-enum class EInput : char 
-{
-    W ='W',
-    w = 'w',
-    A = 'A',
-    a = 'a',
-    S = 'S',
-    s = 's',
-    D = 'D',
-    d = 'd'
-};
-
-class Player 
-{
-    public:
-        Player(Coordinates pos, EPlayerState state)
-        {
-            m_position = pos;
-            m_state = state;
-        }
-        const static char playerIcon = '@';
-        void SetPosition(Coordinates pos) { m_position = pos; }
-        Coordinates GetPosition() const { return m_position; }
-        void SetState(EPlayerState s) { m_state = s; }
-        EPlayerState GetState() const { return m_state; }
-    private:
-        Coordinates m_position;
-        EPlayerState m_state;
-};
-
-int GetIndexFromCoordinates(const Coordinates& c, int width);
-void DrawLevel(const Level& level, const Player& player);
-void UpdatePlayerPosition(Level& level, Player& player);
+int GetIndexFromCoordinates(const FCoordinates& C, int Width);
+void DrawLevel(const FLevel& Level, const APlayer& Player);
+void UpdatePlayerPosition(FLevel& Level, APlayer& Player);
 
 int main() 
 {
+    constexpr FLevelDimensions LevelDimensions{ 25, 15 };
 
-    constexpr LevelDimensions kLevelDimensions{ 25, 15 };
-
-    vector<char> levelVect = { 
+    vector<char> LevelVect = { 
                        '+','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','+',
                        '|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ','*','|',
                        '|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ','|',
@@ -103,73 +38,67 @@ int main()
                        '+','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','+' 
     };
 
-    Level level = { levelVect, kLevelDimensions };
+    FLevel Level = { LevelVect, LevelDimensions };
 
-    Player player = { Coordinates{1,1}, EPlayerState::NoKey };
+    APlayer Player = { FCoordinates{1,1}, EPlayerState::NoKey };
     
-    while(player.GetState() != EPlayerState::Exited) 
+    while(Player.GetState() != EPlayerState::Exited) 
     {
         system("CLS");
-        DrawLevel(level, player);
-        UpdatePlayerPosition(level, player);
+        DrawLevel(Level, Player);
+        UpdatePlayerPosition(Level, Player);
     }
     system("CLS");
-    DrawLevel(level, player);
+    DrawLevel(Level, Player);
     cout << "YOU COMPLETED THE LEVEL!";
+    cout << endl;
 }
 
-int GetIndexFromCoordinates(const Coordinates& c, int width)
+int GetIndexFromCoordinates(const FCoordinates& C, int Width)
 {
-    return c.x + c.y * width;
+    return C.X + C.Y * Width;
 }
 
-void DrawLevel(const Level& level, const Player& player)
+void DrawLevel(const FLevel& Level, const APlayer& Player)
 {
-    for (int y = 0; y < level.dimensions.height; y++) 
+    for (int y = 0; y < Level.Dimensions.Height; y++) 
     {
-        for (int x = 0; x < level.dimensions.width; x++) 
+        for (int x = 0; x < Level.Dimensions.Width; x++) 
         {
-            if (player.GetPosition().x == x && player.GetPosition().y == y) {
-                cout << Player::playerIcon;
+            if (Player.GetPosition().X == x && Player.GetPosition().Y == y) {
+                cout << APlayer::PlayerIcon;
                 continue;
             }
-            cout << level.map[GetIndexFromCoordinates({x, y}, level.dimensions.width)];
+            cout << Level.Map[GetIndexFromCoordinates({x, y}, Level.Dimensions.Width)];
         }
-        cout << endl;
         cout << endl;
     }
 }
 
-void UpdatePlayerPosition(Level& level, Player& player)
+void UpdatePlayerPosition(FLevel& Level, APlayer& Player)
 {
-    char input = _getch();
+    FCoordinates NewPosition{ Player.GetPosition()};
 
-    Coordinates newPosition{ player.GetPosition()};
-
-    switch (input)
+    switch (UserInput::GetUserInput())
     {
-        case (char)EInput::w:
-        case (char)EInput::W:
+        case Input::EInput::Up:
         {
-            newPosition.y--;
+            NewPosition.Y--;
             break;
         }
-        case (char)EInput::s:
-        case (char)EInput::S:
+        case Input::EInput::Down:
         {
-            newPosition.y++;
+            NewPosition.Y++;
             break;
         }
-        case (char)EInput::a:
-        case (char)EInput::A:
+        case Input::EInput::Left:
         {
-            newPosition.x--;
+            NewPosition.X--;
             break;
         }
-        case (char)EInput::d:
-        case (char)EInput::D:
+        case Input::EInput::Right:
         {
-            newPosition.x++;
+            NewPosition.X++;
             break;
         }
 
@@ -177,29 +106,30 @@ void UpdatePlayerPosition(Level& level, Player& player)
             break;
     }
 
-    int index = GetIndexFromCoordinates(newPosition, level.dimensions.width);
-    ptrMapTile mapTile = &level.map[index];
+    int Index = GetIndexFromCoordinates(NewPosition, Level.Dimensions.Width);
+    char& MapTile = Level.Map[Index];
 
-    if (*mapTile == (char)EMapTile::Empty)
+    if (MapTile == (char)EMapTile::Empty)
     {
-        player.SetPosition(newPosition);
+        Player.SetPosition(NewPosition);
     }
-    else if (*mapTile == (char)EMapTile::Key ) 
+    else if (MapTile == (char)EMapTile::Key ) 
     {
-        player.SetState(EPlayerState::HasKey);
-        *mapTile = (char)EMapTile::Empty;
-        player.SetPosition(newPosition);
+        Player.SetState(EPlayerState::HasKey);
+        MapTile = (char)EMapTile::Empty;
+        Player.SetPosition(NewPosition);
     }
-    else if (*mapTile == (char)EMapTile::Door 
-        && player.GetState() == EPlayerState::HasKey) 
+    else if (MapTile == (char)EMapTile::Door 
+        && Player.GetState() == EPlayerState::HasKey) 
     {
-        *mapTile = (char)EMapTile::Empty;
-        player.SetState(EPlayerState::NoKey);
-        player.SetPosition(newPosition);
+        MapTile = (char)EMapTile::Empty;
+        Player.SetState(EPlayerState::NoKey);
+        Player.SetPosition(NewPosition);
     }
-    else if (*mapTile == (char)EMapTile::Goal) {
-        *mapTile = (char)EMapTile::Empty;
-        player.SetState(EPlayerState::Exited);
-        player.SetPosition(newPosition);
+    else if (MapTile == (char)EMapTile::Goal) 
+    {
+        MapTile = (char)EMapTile::Empty;
+        Player.SetState(EPlayerState::Exited);
+        Player.SetPosition(NewPosition);
     }
 }

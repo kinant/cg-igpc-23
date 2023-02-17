@@ -7,6 +7,7 @@ class Game
 	public:
 		Game(APlayer* Player, Level::FLevel* Level);
 		void UpdatePlayerPosition();
+		void DrawGame();
 		bool IsGameDone() const;
 	private:
 		APlayer* MPlayer;

@@ -70,6 +70,20 @@ void Game::UpdatePlayerPosition()
     DrawPlayerPosition();*/
 }
 
+void Game::DrawGame()
+{
+    system("CLS");
+
+    for (int y = 0; y < MLevel->Dimensions.Height; y++) 
+    {
+        for (int x = 0; x < MLevel->Dimensions.Width; x++) 
+        {
+            cout << MLevel->Level[y][x];
+        }
+        cout << endl;
+    }
+}
+
 void Game::DrawPlayerPosition()
 {
     //int index = Level::FLevel::GetIndexFromCoordinates(MPlayer.GetPosition(), MLevel.Dimensions.Width);

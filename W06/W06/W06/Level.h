@@ -18,9 +18,8 @@ namespace Level
 
     struct FLevel
     {
-        char* Map;
+        vector<vector<char>> Level;
         FLevelDimensions Dimensions;
         static int GetIndexFromCoordinates(const FCoordinates& C, int Width);
-        static void DrawLevel(const FLevel& Level);
     };
 }

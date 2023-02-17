@@ -12,7 +12,6 @@ using Input::UserInput;
 
 using namespace Level;
 
-int GetIndexFromCoordinates(const FCoordinates& C, int Width);
 void DrawLevel(const FLevel& Level, const APlayer& Player);
 void UpdatePlayerPosition(FLevel& Level, APlayer& Player);
 
@@ -54,11 +53,6 @@ int main()
     cout << endl;
 }
 
-int GetIndexFromCoordinates(const FCoordinates& C, int Width)
-{
-    return C.X + C.Y * Width;
-}
-
 void DrawLevel(const FLevel& Level, const APlayer& Player)
 {
     for (int y = 0; y < Level.Dimensions.Height; y++) 
@@ -69,7 +63,7 @@ void DrawLevel(const FLevel& Level, const APlayer& Player)
                 cout << APlayer::PlayerIcon;
                 continue;
             }
-            cout << Level.Map[GetIndexFromCoordinates({x, y}, Level.Dimensions.Width)];
+            cout << Level.Map[Level.GetIndexFromCoordinates({x, y}, Level.Dimensions.Width)];
         }
         cout << endl;
     }
@@ -106,7 +100,7 @@ void UpdatePlayerPosition(FLevel& Level, APlayer& Player)
             break;
     }
 
-    int Index = GetIndexFromCoordinates(NewPosition, Level.Dimensions.Width);
+    int Index = Level.GetIndexFromCoordinates(NewPosition, Level.Dimensions.Width);
     char& MapTile = Level.Map[Index];
 
     if (MapTile == (char)EMapTile::Empty)

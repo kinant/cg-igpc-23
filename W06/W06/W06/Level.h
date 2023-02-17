@@ -21,15 +21,17 @@ namespace Level
     {
         char* Map;
         FLevelDimensions Dimensions;
+        static int GetIndexFromCoordinates(const FCoordinates& C, int Width);
     };
 
-    enum class EMapTile : char {
-        Empty = ' ',
-        HWall = '-',
-        VWall = '|',
-        Key = '*',
-        Door = 'D',
-        Goal = 'X',
-        Corner = '+'
+    enum class EMapTile 
+    {
+        Empty = 32,
+        HWall = 45,
+        VWall = 124,
+        Key = 42,
+        Door = 68,
+        Goal = 88,
+        Corner = 43
     };
 }

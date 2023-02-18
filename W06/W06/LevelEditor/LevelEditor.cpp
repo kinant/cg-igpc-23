@@ -33,9 +33,24 @@ int main()
 
 	// Initialize the vector
 	// https://www.scaler.com/topics/2d-vector-cpp/
-	vector<vector<char>> emptyVector( Level.Dimensions.Height, vector<char>( Level.Dimensions.Width, ' '));
+	vector<vector<char>> StartingVector( Level.Dimensions.Height, vector<char>( Level.Dimensions.Width, ' '));
 
-    Level.Level = emptyVector;
+    for (int i = 0; i < Level.Dimensions.Height; i++) 
+    {
+        for (int j = 0; j < Level.Dimensions.Width; j++) 
+        {
+            if (i == 0 || i == Level.Dimensions.Height - 1)
+            {
+                StartingVector[i][j] = '-';
+            }
+            if (j == 0 || j == Level.Dimensions.Width - 1) 
+            {
+                StartingVector[i][j] = '-';
+            }
+        }
+    }
+
+    Level.Level = StartingVector;
 
 	const static int screenWidth = (Level.Dimensions.Width + NUM_BORDER_ROWS) * MAP_TILE_SIZE;
 	const static int screenHeight = (Level.Dimensions.Height + NUM_BORDER_ROWS) * MAP_TILE_SIZE;
@@ -43,8 +58,6 @@ int main()
 	InitWindow(screenWidth, screenHeight, "LEVEL EDITOR");
 
 	SetTargetFPS(15);
-
-    
 
 	// Main game loop
 	while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -62,7 +75,6 @@ int main()
 
 	CloseWindow();          // Close window and OpenGL context
 }
-
 
 void GetLevelDimensions(FLevel& Level) 
 {
@@ -85,7 +97,7 @@ void RenderLevel(FLevel& Level)
             case '|':
             case '+':
             {
-                DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CWalls);
+                DrawRectangle((x + 1) * MAP_TILE_SIZE, (y + 1) * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CWalls);
                 break;
             }
             case 'D':
@@ -142,4 +154,3 @@ void RenderLeftBorder(int width, int height)
         DrawRectangle(width, i * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, BLACK);
     }
 }
-

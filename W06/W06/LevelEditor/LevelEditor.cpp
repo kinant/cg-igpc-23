@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include "raylib.h"
 
 #include "ACursor.h"
@@ -7,10 +9,15 @@
 using std::cin;
 using std::cout;
 using std::endl;
+using std::ofstream;
+using std::ifstream;
+using std::istringstream;
+using std::string;
 
 using namespace Level;
 
 void GetLevelDimensions(FLevel& Level);
+void SetLevelDimensions(FLevel& Level, vector<vector<char>>& v);
 void RenderLevel(FLevel& Level);
 void RenderTopBorder(int width);
 void RenderBottomBorder(int width, int height);
@@ -19,9 +26,21 @@ void RenderLeftBorder(int width, int height);
 void RenderCursor(ACursor& Cursor);
 void UpdateCursorPosition(ACursor& Cursor, FLevel& Level);
 void HandleDrawInput(ACursor& Cursor, FLevel& Level);
+void UpdateSaveButtonState(Vector2& mousePoint, bool& btnAction, int& btnState, Rectangle& sourceRec, float& frameHeight, Texture2D& button, Rectangle& btnBounds, FLevel& Level);
+void SaveLevel(FLevel& Level);
+
+vector<char> ParseLine(string line);
+bool ReadLevelFile(string path, vector<vector<char>>& LevelVector);
+
+vector<vector<char>> NewLevelVector(int height, int width);
 
 constexpr static int MAP_TILE_SIZE = 32;
 constexpr static int CURSOR_SIZE = 32;
+constexpr static int SAVE_BUTTON_H = 35;
+constexpr static int SAVE_BUTTON_W = 100;
+constexpr static int SAVE_BUTTON_M = 5;
+constexpr static int SAVE_BUTTON_NUM_FRAMES = 3;
+
 constexpr static int MAP_CURSOR_SIZE = 32;
 constexpr static int NUM_BORDER_COLS = 2;
 constexpr static int NUM_BORDER_ROWS = 2;
@@ -33,26 +52,43 @@ Color CGoal{ 0, 0, 255, 255 };
 
 int main() 
 {
-	FLevel Level;
-	GetLevelDimensions(Level);
 
-	// Initialize the vector
-	// https://www.scaler.com/topics/2d-vector-cpp/
-	vector<vector<char>> StartingVector( Level.Dimensions.Height, vector<char>( Level.Dimensions.Width, ' '));
+    FLevel Level;
+    vector<vector<char>> StartingVector;
 
-    for (int i = 0; i < Level.Dimensions.Height; i++) 
-    {
-        for (int j = 0; j < Level.Dimensions.Width; j++) 
+    // ---- MENU
+    cout << "LEVEL EDITOR: Please Choose an Option: " << endl;
+    cout << "   1) New Level" << endl;
+    cout << "   2) Load Level" << endl;
+    cout << "Enter your option: ";
+    
+    int option;
+    cin >> option;
+
+    switch (option) {
+        case 1: 
         {
-            if (i == 0 || i == Level.Dimensions.Height - 1)
-            {
-                StartingVector[i][j] = '-';
-            }
-            if (j == 0 || j == Level.Dimensions.Width - 1) 
-            {
-                StartingVector[i][j] = '-';
-            }
+            GetLevelDimensions(Level);
+            StartingVector = NewLevelVector(Level.Dimensions.Height, Level.Dimensions.Width);
+            break;
         }
+        case 2:
+        {
+
+            string path;
+            system("CLS");
+
+            cout << endl;
+            cout << "Please input filename: ";
+            cin >> path;
+
+            ReadLevelFile(path, StartingVector);
+            SetLevelDimensions(Level, StartingVector);
+            break;
+        }
+        default:
+            exit(-1);
+            break;
     }
 
     Level.Level = StartingVector;
@@ -60,9 +96,22 @@ int main()
     ACursor Cursor = { FCoordinates{ 1, 1} };
 
 	const static int screenWidth = (Level.Dimensions.Width + NUM_BORDER_ROWS) * MAP_TILE_SIZE;
-	const static int screenHeight = (Level.Dimensions.Height + NUM_BORDER_ROWS) * MAP_TILE_SIZE;
+	const static int screenHeight = ((Level.Dimensions.Height + NUM_BORDER_ROWS) * MAP_TILE_SIZE) + SAVE_BUTTON_H + (2 * SAVE_BUTTON_M);
 
 	InitWindow(screenWidth, screenHeight, "LEVEL EDITOR");
+
+    //---- SAVE BUTTON
+    Texture2D button = LoadTexture("resources/save_button.png");
+
+    float frameHeight = (float)button.height / SAVE_BUTTON_NUM_FRAMES;
+    Rectangle sourceRec = { 0, 0, (float)button.width, frameHeight };
+
+    Rectangle btnBounds = { screenWidth / 2.0f - button.width / 2.0f, (screenHeight - SAVE_BUTTON_M) - (button.height / SAVE_BUTTON_NUM_FRAMES), (float) button.width, frameHeight };
+
+    int btnState = 0;               // Button state: 0-NORMAL, 1-MOUSE_HOVER, 2-PRESSED
+    bool btnAction = false;         // Button action should be activated
+
+    Vector2 mousePoint = { 0.0f, 0.0f };
 
 	SetTargetFPS(10);
 
@@ -80,8 +129,11 @@ int main()
         RenderCursor(Cursor);
         UpdateCursorPosition(Cursor, Level);
         HandleDrawInput(Cursor, Level);
+        UpdateSaveButtonState(mousePoint, btnAction, btnState, sourceRec, frameHeight, button, btnBounds, Level);
         EndDrawing();
 	}
+
+    UnloadTexture(button);
 
 	CloseWindow();          // Close window and OpenGL context
 }
@@ -95,6 +147,12 @@ void GetLevelDimensions(FLevel& Level)
 	cin >> Level.Dimensions.Width;
 }
 
+void SetLevelDimensions(FLevel& Level, vector<vector<char>>& v)
+{
+    Level.Dimensions.Height = v.size();
+    Level.Dimensions.Width = v[0].size();
+}
+
 void RenderLevel(FLevel& Level)
 {
     int startX = (NUM_BORDER_COLS / 2);
@@ -106,9 +164,7 @@ void RenderLevel(FLevel& Level)
         {
             switch (Level.Level[y][x])
             {
-            case '-':
-            case '|':
-            case '+':
+            case '#':
             {
                 DrawRectangle((x + startX) * MAP_TILE_SIZE, (y + startY) * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CWalls);
                 break;
@@ -204,18 +260,6 @@ void UpdateCursorPosition(ACursor& Cursor, FLevel& Level)
     int boundsTop = (NUM_BORDER_ROWS / 2) * MAP_TILE_SIZE;
     int boundsBottom = ((Level.Dimensions.Height) * MAP_TILE_SIZE) - (1 + NUM_BORDER_ROWS / 2) * MAP_TILE_SIZE;
 
-    cout << endl;
-
-    cout << "LEFT BOUND: " << boundsLeft << endl;
-    cout << "RIGHT BOUND: " << boundsRight << endl;
-    cout << "TOP BOUND: " << boundsTop << endl;
-    cout << "BOTTOM BOUND: " << boundsBottom << endl;
-
-    cout << endl;
-
-    cout << "NEW X: " << NewPosition.X * MAP_TILE_SIZE << endl;
-    cout << "NEW Y: " << NewPosition.Y * MAP_TILE_SIZE << endl;
-
     if ((NewPosition.X * MAP_TILE_SIZE >= boundsLeft && NewPosition.X * MAP_TILE_SIZE <= boundsRight) 
         && (NewPosition.Y * MAP_TILE_SIZE <= boundsBottom && NewPosition.Y * MAP_TILE_SIZE >= boundsTop)) 
     {
@@ -232,7 +276,7 @@ void HandleDrawInput(ACursor& Cursor, FLevel& Level)
     {
         if (MapTile == (char)Map::EMapTile::Empty) 
         {
-            Level.Level[Cursor.GetPosition().Y][Cursor.GetPosition().X] = (char)Map::EMapTile::HWall;
+            Level.Level[Cursor.GetPosition().Y][Cursor.GetPosition().X] = (char)Map::EMapTile::Wall;
         }
     }
     if (IsKeyReleased(KEY_J))
@@ -264,3 +308,133 @@ void HandleDrawInput(ACursor& Cursor, FLevel& Level)
         }
     }
 }
+
+void UpdateSaveButtonState(Vector2& mousePoint, bool& btnAction, int& btnState, Rectangle& sourceRec, float& frameHeight, Texture2D& button, Rectangle& btnBounds, FLevel& Level)
+{
+    // Update
+    mousePoint = GetMousePosition();
+    btnAction = false;
+
+    // Check button state
+    if (CheckCollisionPointRec(mousePoint, btnBounds))
+    {
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) btnState = 2;
+        else btnState = 1;
+
+        if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) btnAction = true;
+    }
+    else btnState = 0;
+
+    if (btnAction)
+    {
+        // TODO: Any desired action
+        SaveLevel(Level);
+    }
+
+    // Calculate button frame rectangle to draw depending on button state
+    sourceRec.y = btnState * frameHeight;
+
+    Vector2 v = {0, 0};
+    v.x = btnBounds.x;
+    v.y = btnBounds.y;  
+
+    DrawTextureRec(button, sourceRec, v, WHITE); // Draw button frame
+}
+
+void SaveLevel(FLevel& Level)
+{
+    // create output file stream
+    ofstream outfile("1.level");
+    
+    for (int y = 0; y < Level.Dimensions.Height; y++) 
+    {
+        for (int x = 0; x < Level.Dimensions.Width; x++) {
+            outfile << Level.Level[y][x];
+        }
+        if (y != Level.Dimensions.Height - 1) {
+            outfile << "\n";
+        }
+    }
+
+    outfile.close();
+}
+
+vector<char> ParseLine(string line) {
+    
+    istringstream sline(line);
+    
+    char c;
+    
+    vector<char> row;
+
+    cout << "PARSING LINE: ";
+
+    while (sline >> c) {
+
+        cout << c;
+
+        row.push_back(c);
+    }
+
+    cout << endl;
+
+    return row;
+}
+
+bool ReadLevelFile(string path, vector<vector<char>>& LevelVector) {
+
+    // create empty vector
+    vector<vector<int>> board = {};
+
+    // create and open file stream
+    ifstream my_file;
+    my_file.open(path);
+
+    // check that input file stream object has been successfully created
+    if (my_file) {
+
+        // proceed to read the lines of the input stream
+        string line;
+        while (getline(my_file, line)) {
+            // 
+            // cout << "LINE READ: " << line << endl;
+            // parse the line
+            vector<char> parsedVector = ParseLine(line);
+            // add vector
+            LevelVector.push_back(parsedVector);
+        }
+    }
+    else 
+    {
+        return false;
+    }
+
+    return true;
+}
+
+vector<vector<char>> NewLevelVector(int height, int width)
+{
+
+    // Initialize the vector
+    // https://www.scaler.com/topics/2d-vector-cpp/
+    vector<vector<char>> StartingVector(height, vector<char>(width, '0'));
+
+    for (int i = 0; i < height; i++)
+    {
+        for (int j = 0; j < width; j++)
+        {
+            if (i == 0 || i == height - 1)
+            {
+                StartingVector[i][j] = '#';
+            }
+            if (j == 0 || j == width - 1)
+            {
+                StartingVector[i][j] = '#';
+            }
+        }
+    }
+
+    return StartingVector;
+}
+
+

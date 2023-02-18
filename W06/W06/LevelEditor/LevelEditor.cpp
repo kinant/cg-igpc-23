@@ -1,8 +1,8 @@
 #include <iostream>
 #include "raylib.h"
 
+#include "ACursor.h"
 #include "../W06/Level.h"
-#include "../W06/APlayer.h"
 
 using std::cin;
 using std::cout;
@@ -16,8 +16,11 @@ void RenderTopBorder(int width);
 void RenderBottomBorder(int width, int height);
 void RenderRightBorder(int height);
 void RenderLeftBorder(int width, int height);
+void RenderCursor(ACursor& Cursor);
 
 constexpr static int MAP_TILE_SIZE = 32;
+constexpr static int CURSOR_SIZE = 32;
+constexpr static int MAP_CURSOR_SIZE = 32;
 constexpr static int NUM_BORDER_COLS = 2;
 constexpr static int NUM_BORDER_ROWS = 2;
 
@@ -52,6 +55,8 @@ int main()
 
     Level.Level = StartingVector;
 
+    ACursor Cursor = { FCoordinates{ 1, 1} };
+
 	const static int screenWidth = (Level.Dimensions.Width + NUM_BORDER_ROWS) * MAP_TILE_SIZE;
 	const static int screenHeight = (Level.Dimensions.Height + NUM_BORDER_ROWS) * MAP_TILE_SIZE;
 
@@ -70,6 +75,7 @@ int main()
         RenderBottomBorder(Level.Dimensions.Width + NUM_BORDER_COLS, (Level.Dimensions.Height + NUM_BORDER_COLS) * MAP_TILE_SIZE);
         RenderRightBorder(Level.Dimensions.Height + NUM_BORDER_ROWS);
         RenderLeftBorder(((Level.Dimensions.Width + NUM_BORDER_COLS) * MAP_TILE_SIZE) - MAP_TILE_SIZE, (Level.Dimensions.Height) + NUM_BORDER_ROWS);
+        RenderCursor(Cursor);
         EndDrawing();
 	}
 
@@ -153,4 +159,14 @@ void RenderLeftBorder(int width, int height)
     {
         DrawRectangle(width, i * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, BLACK);
     }
+}
+
+void RenderCursor(ACursor& Cursor) 
+{
+    int startX = (1 + NUM_BORDER_COLS / 2) * MAP_TILE_SIZE;
+    int startY = (1 + NUM_BORDER_ROWS / 2) * MAP_TILE_SIZE;
+
+    DrawRectangle((Cursor.GetPosition().X + startX), (Cursor.GetPosition().Y + startY), CURSOR_SIZE, CURSOR_SIZE, YELLOW);
+
+
 }

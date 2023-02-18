@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(APlayer* Player, Level::FLevel* Level)
+Game::Game(ACursor* Player, Level::FLevel* Level)
 {
 	MPlayer = Player;
 	MLevel = Level;

@@ -40,7 +40,7 @@ int main()
 
     FLevel Level = { LevelArray, LevelDimensions };
 
-    APlayer Player = { FCoordinates{1,1}, EPlayerState::NoKey };
+    ACursor Player = { FCoordinates{1,1}, EPlayerState::NoKey };
 
     Game NewGame = Game(&Player, &Level);
 

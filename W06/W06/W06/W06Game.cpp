@@ -1,3 +1,4 @@
+#include "raylib.h"
 #include <iostream>
 #include <vector>
 #include "UserInput.h"
@@ -14,8 +15,6 @@ using std::vector;
 using Input::UserInput;
 
 using namespace Level;
-
-const int FPS = 10;
 
 int main() 
 {
@@ -45,12 +44,20 @@ int main()
 
     Game NewGame = Game(&Player, &Level);
 
-    NewGame.DrawGame();
+    int screenWidth = LevelDimensions.Width * MAP_TILE_SIZE;
+    int screenHeight = LevelDimensions.Height * MAP_TILE_SIZE;
 
-    while (!NewGame.IsGameDone())
+    InitWindow(screenWidth, screenHeight, "KEY QUEST - BY KINAN TURMAN");
+
+    SetTargetFPS(15);               // Set our game to run at 60 frames-per-second
+    //--------------------------------------------------------------------------------------
+
+    // Main game loop
+    while (!WindowShouldClose() && !NewGame.IsGameDone())    // Detect window close button or ESC key
     {
         NewGame.UpdatePlayerPosition();
-        NewGame.DrawGame();
+        NewGame.Render();
     }
 
+    CloseWindow();          // Close window and OpenGL context
 }

@@ -4,33 +4,23 @@ namespace Input
 {
     EInput UserInput::GetUserInput()
     {
-        char CharInput = _getch();
-
-        switch (CharInput)
-        {
-        case KEY_BINDING_UW:
-        case KEY_BINDING_LW:
+        if (IsKeyDown(KEY_W)) 
         {
             return EInput::Up;
         }
-        case KEY_BINDING_US:
-        case KEY_BINDING_LS:
+        else if (IsKeyDown(KEY_S)) 
         {
             return EInput::Down;
         }
-        case KEY_BINDING_UA:
-        case KEY_BINDING_LA:
+        else if (IsKeyDown(KEY_A))
         {
             return EInput::Left;
         }
-        case KEY_BINDING_UD:
-        case KEY_BINDING_LD:
+        else if (IsKeyDown(KEY_D))
         {
             return EInput::Right;
         }
-        default:
-            return EInput::None;
-            break;
-        }
+
+        return EInput::None;
     }
 }

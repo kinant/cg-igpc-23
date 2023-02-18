@@ -52,7 +52,10 @@ int main(void)
     SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
     //--------------------------------------------------------------------------------------
 
-    Color CGray{ 0, 128, 128, 128 };
+    Color CWalls{ 128, 128, 128, 160 };
+    Color CDoor{ 100, 100, 100, 255 };
+    Color CKey{ 0, 255, 0, 255 };
+    Color CGoal{ 0, 0, 255, 255 };
 
     // Main game loop
     while (!WindowShouldClose())    // Detect window close button or ESC key
@@ -71,21 +74,36 @@ int main(void)
                     case '|':
                     case '+':
                     {
-                        DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CGray);
+                        DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CWalls);
+                        break;
                     }
-
+                    case 'D':
+                    {
+                        DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CDoor);
+                        break;
+                    }
+                    case 'X':
+                    {
+                        DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CGoal);
+                        break;
+                    }
+                    case '*':
+                    {
+                        DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CKey);
+                        break;
+                    }
                     default:
                         break;
                 }
 
                 // Draw tiles from id (and tile borders)
                 
-                DrawRectangleLines(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, Fade(CGray, 0.5f));
+                DrawRectangleLines(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, Fade(CWalls, 0.5f));
             }
         }
 
         // Draw Player:
-        DrawCircle(1 * MAP_TILE_SIZE +(MAP_TILE_SIZE/2), 1 * MAP_TILE_SIZE + (MAP_TILE_SIZE/2), PLAYER_SIZE / 2, RED);
+        DrawCircle(1 * MAP_TILE_SIZE + (MAP_TILE_SIZE/2), 1 * MAP_TILE_SIZE + (MAP_TILE_SIZE/2), PLAYER_SIZE / 2, RED);
 
         EndDrawing();
         //----------------------------------------------------------------------------------

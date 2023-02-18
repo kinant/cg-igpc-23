@@ -1,5 +1,7 @@
 #include "raylib.h"
 #include <iostream>
+#include <sstream>
+#include <fstream>
 #include <vector>
 #include "UserInput.h"
 #include "Level.h"
@@ -12,35 +14,33 @@ using std::cin;
 using std::endl;
 using std::vector;
 
+using std::ofstream;
+using std::ifstream;
+using std::istringstream;
+using std::string;
+
 using Input::UserInput;
 
 using namespace Level;
 
+bool ReadLevelFile(string path, vector<vector<char>>& LevelVector);
+vector<char> ParseLine(string line);
+
+
 int main() 
 {
-    constexpr FLevelDimensions LevelDimensions{ 25, 15 };
+    vector<vector<char>> LevelArray = {};
 
-    vector<vector<char>> LevelArray = {
-            {'+','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','+'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ','*','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','+','-',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','+','-','-','-','-','-','-','-','-','-','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','|',' ',' ',' ',' ',' ',' ',' ',' ',' ','|'},
-            {'|',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ','D',' ',' ',' ',' ',' ',' ',' ',' ','X','|'},
-            {'+','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','-','+'}
-    };
+    ReadLevelFile("../1.level", LevelArray);
+
+    cout << "HEIGHT: " << LevelArray.size() << endl;
+    cout << "WIDTH: " << LevelArray[0].size() << endl;
+
+    const FLevelDimensions LevelDimensions{ LevelArray[0].size(), LevelArray.size()};
 
     FLevel Level = { LevelArray, LevelDimensions };
 
-    ACursor Player = { FCoordinates{1,1}, EPlayerState::NoKey };
+    APlayer Player = { FCoordinates{1,1}, EPlayerState::NoKey };
 
     Game NewGame = Game(&Player, &Level);
 
@@ -60,4 +60,57 @@ int main()
     }
 
     CloseWindow();          // Close window and OpenGL context
+}
+
+vector<char> ParseLine(string line) {
+
+    istringstream sline(line);
+
+    char c;
+
+    vector<char> row;
+
+    cout << "PARSING LINE: ";
+
+    while (sline >> c) {
+
+        cout << c;
+
+        row.push_back(c);
+    }
+
+    cout << endl;
+
+    return row;
+}
+
+bool ReadLevelFile(string path, vector<vector<char>>& LevelVector) {
+
+    // create empty vector
+    vector<vector<int>> board = {};
+
+    // create and open file stream
+    ifstream my_file;
+    my_file.open(path);
+
+    // check that input file stream object has been successfully created
+    if (my_file) {
+
+        // proceed to read the lines of the input stream
+        string line;
+        while (getline(my_file, line)) {
+            // 
+            // cout << "LINE READ: " << line << endl;
+            // parse the line
+            vector<char> parsedVector = ParseLine(line);
+            // add vector
+            LevelVector.push_back(parsedVector);
+        }
+    }
+    else
+    {
+        return false;
+    }
+
+    return true;
 }

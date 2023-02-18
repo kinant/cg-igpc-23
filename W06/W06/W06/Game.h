@@ -12,12 +12,12 @@ constexpr static int PLAYER_SIZE = 32;         // Player size
 class Game
 {
 	public:
-		Game(ACursor* Player, Level::FLevel* Level);
+		Game(APlayer* Player, Level::FLevel* Level);
 		void UpdatePlayerPosition();
 		void Render();
 		bool IsGameDone() const;
 	private:
-		ACursor* MPlayer;
+		APlayer* MPlayer;
 		Level::FLevel* MLevel;
 
 		Color CWalls{ 128, 128, 128, 160 };

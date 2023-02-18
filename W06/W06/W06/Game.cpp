@@ -1,6 +1,6 @@
 #include "Game.h"
 
-Game::Game(ACursor* Player, Level::FLevel* Level)
+Game::Game(APlayer* Player, Level::FLevel* Level)
 {
 	MPlayer = Player;
 	MLevel = Level;
@@ -80,37 +80,39 @@ void Game::DrawLevel()
 
     ClearBackground(RAYWHITE);
 
-    for (unsigned int y = 0; y < 15; y++)
+    for (unsigned int y = 0; y < MLevel->Level.size(); y++)
     {
-        for (unsigned int x = 0; x < 25; x++)
+        for (unsigned int x = 0; x < MLevel->Level[y].size(); x++)
         {
             switch (MLevel->Level[y][x])
             {
-            case '-':
-            case '|':
-            case '+':
-            {
-                DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CWalls);
-                break;
-            }
-            case 'D':
-            {
-                DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CDoor);
-                break;
-            }
-            case 'X':
-            {
-                DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CGoal);
-                break;
-            }
-            case '*':
-            {
-                DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CKey);
-                break;
-            }
-            default:
-                break;
-            }
+                case '0':
+                {
+                    break;
+                }
+                case '#':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CWalls);
+                    break;
+                }
+                case 'D':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CDoor);
+                    break;
+                }
+                case 'X':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CGoal);
+                    break;
+                }
+                case '*':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CKey);
+                    break;
+                }
+                default:
+                    break;
+                }
             DrawRectangleLines(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, Fade(CWalls, 0.5f));
         }
     }

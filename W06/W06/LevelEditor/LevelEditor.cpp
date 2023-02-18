@@ -16,6 +16,8 @@ using std::string;
 
 using namespace Level;
 
+string DIR_PATH = "../";
+
 void GetLevelDimensions(FLevel& Level);
 void SetLevelDimensions(FLevel& Level, vector<vector<char>>& v);
 void RenderLevel(FLevel& Level);
@@ -344,7 +346,7 @@ void UpdateSaveButtonState(Vector2& mousePoint, bool& btnAction, int& btnState, 
 void SaveLevel(FLevel& Level)
 {
     // create output file stream
-    ofstream outfile("1.level");
+    ofstream outfile("../1.level");
     
     for (int y = 0; y < Level.Dimensions.Height; y++) 
     {

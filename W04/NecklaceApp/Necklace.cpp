@@ -1,10 +1,13 @@
 #include <iostream>
 #include <vector>
+#include "UserInput.h"
 
 using std::cout;
 using std::cin;
 using std::endl;
 using std::vector;
+
+using UInput::UserInput;
 
 bool IsNecklaceComplete(const vector<int>& sequence, const int number1, const int number2);
 void GetNextNumberInSequence(vector<int>& sequence);
@@ -14,11 +17,11 @@ int main()
 {
 	int number1;
 	cout << "Please enter the first number: " << endl;
-	cin >> number1;
+	UserInput::GetUserInputRange(number1, "Enter 1st number (1-9): ", 1, 9);
 
 	int number2;
 	cout << "Please enter the second number: " << endl;
-	cin >> number2;
+	UserInput::GetUserInputRange(number2, "Enter 2nd number (1-9): ", 1, 9);
 
 	vector<int> sequence;
 	sequence.push_back(number1);

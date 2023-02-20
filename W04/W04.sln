@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RandomChallenge", "RandomCh
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NecklaceApp", "NecklaceApp\NecklaceApp.vcxproj", "{F7E8EBAA-3FEE-4B73-923C-5E3769227B3E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UserInput", "UserInput\UserInput.vcxproj", "{60FD90E8-2745-49DF-B0A5-899C082EB5B2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{F7E8EBAA-3FEE-4B73-923C-5E3769227B3E}.Release|x64.Build.0 = Release|x64
 		{F7E8EBAA-3FEE-4B73-923C-5E3769227B3E}.Release|x86.ActiveCfg = Release|Win32
 		{F7E8EBAA-3FEE-4B73-923C-5E3769227B3E}.Release|x86.Build.0 = Release|Win32
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Debug|x64.ActiveCfg = Debug|x64
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Debug|x64.Build.0 = Debug|x64
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Debug|x86.ActiveCfg = Debug|Win32
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Debug|x86.Build.0 = Debug|Win32
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Release|x64.ActiveCfg = Release|x64
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Release|x64.Build.0 = Release|x64
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Release|x86.ActiveCfg = Release|Win32
+		{60FD90E8-2745-49DF-B0A5-899C082EB5B2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,7 @@
 #include<string>
 
 using std::string;
+using UInput::UserInput;
 
 int main() 
 {
@@ -10,8 +11,11 @@ int main()
 	char testChar;
 	string testString;
 
-	InputValidator::GenericUserInput(testInt, "Please input a number: ");
+	UserInput::GenericUserInput(testInt, "Please input a number: ");
 	std::cout << "Test int: " << testInt << std::endl;
+
+	UserInput::GenericUserInput(testInt, "Please input a number: ", 1, 100);
+	std::cout << "Test int (1-100): " << testInt << std::endl;
 
 	return 0;
 }

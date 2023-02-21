@@ -1,6 +1,6 @@
 /*
 	CGSpectrum IGPC Cert T1
-	Week 04 Challenge 3 - Class to be used to validate user input (So that I don't have to re-write code).
+	Week 04 Challenge 5 - Class to be used to validate user input (So that I don't have to re-write code).
 	It only has basic functionality right now, but I hope to extend it, and keep adding to it.
 	By: Kinan Turman. 2023
 
@@ -10,6 +10,7 @@
 	- https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl
 
 */
+// Q&A: Using this helper class instead of just "free functions":
 
 #pragma once
 

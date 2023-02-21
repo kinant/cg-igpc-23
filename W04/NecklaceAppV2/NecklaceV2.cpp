@@ -1,6 +1,6 @@
 /*
 	CGSpectrum IGPC Cert T1
-	Week 04 Challenge 1 V2 - Program that solves the Necklace Problem without using vectors
+	Week 04 Challenge 2 V2 - Program that solves the Necklace Problem without using vectors
 	By: Kinan Turman. 2023
 
 	Used the following resource to calculate a random number between a range:

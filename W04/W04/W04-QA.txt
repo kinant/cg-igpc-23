@@ -1,3 +1,13 @@
+// Challenges Complete:
+1. Challenge 1 - NecklaceApp: The Necklace Problem using vectors and functions
+2. Challenge 2 - NecklaceV2: The Necklace Problem using recursive function
+3. Challenge 3 - RandomChallenge: Random Generator to find number entered by user
+4. Challenge 4 - W04: W04 Challenge, a function to return a number cubed. 
+5. Challenge 5 - UserInput.h: Personal Challenge to create User Input validation code
+
+NOTE: The same "UserInput.h" file is used in all the projects/challenges to get user input. That 
+was the purpose of that personal challenge. 
+
 // Q&A For W04:
 
 1. Templates

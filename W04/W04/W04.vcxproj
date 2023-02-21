@@ -132,6 +132,9 @@
   <ItemGroup>
     <ClInclude Include="UserInput.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="W04-QA.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

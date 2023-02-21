@@ -1,6 +1,6 @@
 /*
 	CGSpectrum IGPC Cert T1
-	Week 04 Challenge 1 - Program that calculates number of iterations to randomnly pick
+	Week 04 Challenge 3 - Program that calculates number of iterations to randomnly pick
 	a user inputed number. Does it two ways: recursively and non-recursively. 
 	By: Kinan Turman. 2023
 
@@ -28,7 +28,7 @@ using UInput::UserInput;
 @return - eventually returns the counter or number of iterations required to randomnly pick the selected number
 */
 
-int RandomUntilSelectedNumber_Recursively(int MinRange, int MaxRange, int SelectedNumber)
+int RandomUntilSelectedNumber_Recursively(const int MinRange, const int MaxRange, const int SelectedNumber)
 {
 	// Get a random number in the range
 	int RandNum = MinRange + (rand() % (MaxRange - MinRange + 1));
@@ -56,7 +56,7 @@ int RandomUntilSelectedNumber_Recursively(int MinRange, int MaxRange, int Select
 *
 @return - eventually returns the counter or number of iterations required to randomnly pick the selected number
 */
-int RandomUntilSelectedNumber_NonRecursively(int MinRange, int MaxRange, int SelectedNumber)
+int RandomUntilSelectedNumber_NonRecursively(const int MinRange, const int MaxRange, const int SelectedNumber)
 {
 	// We start the counter at 1, on the chance that the first random generated int is the correct guess
 	int Count = 1;
@@ -72,8 +72,8 @@ int RandomUntilSelectedNumber_NonRecursively(int MinRange, int MaxRange, int Sel
 
 int main()
 {
-	int MinRange = 1;
-	int MaxRange = 100;
+	static constexpr int MinRange = 1;
+	static constexpr int MaxRange = 100;
 	int SelectedNumber = 0;
 
 	// Prompt user of input in the range

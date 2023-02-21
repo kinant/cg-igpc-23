@@ -1,10 +1,31 @@
 #include "UserInput.h"
 #include <iostream>
 
-// https://stackoverflow.com/questions/5373107/how-to-implement-static-class-member-functions-in-cpp-file
-// https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl
+using std::cin;
+using std::cout;
+using std::string;
+
+using UInput::UserInput;
 
 int main() 
 {
+	// works for int
+	int IntegerA;
+	UserInput::GetUserInput(IntegerA, "Input an integer: ");
+	cout << IntegerA << endl;
 
+	// works for float
+	float FloatA;
+	UserInput::GetUserInput(FloatA, "Input a Float: ");
+	cout << FloatA << endl;
+
+	// works for char
+	char CharA;
+	UserInput::GetUserInput(CharA, "Input a char: ");
+	cout << CharA << endl;
+
+	// works for string
+	string StringA;
+	UserInput::GetUserInput(StringA, "Input a String: ");
+	cout << StringA << endl;
 }

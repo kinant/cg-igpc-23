@@ -74,6 +74,8 @@ namespace UInput
 			ClearCin();
 			cout << ERROR_MESSAGE_GENERAL;
 		}
+		// Call ClearCin so that we ignore any other possible valid values in the stream.
+		// For instance, if you input 5.5 for an integer, it will take 5 and .5 as valid inputs.
 		ClearCin();
 	}
 
@@ -121,6 +123,7 @@ namespace UInput
 				bIsValidInput = true;
 			}
 		}
+ 
 		ClearCin();
 	}
 }

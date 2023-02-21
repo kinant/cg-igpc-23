@@ -1,0 +1,7 @@
+// Q&A For W04:
+
+1. Templates
+2. Difference between template <typename T> and template <class T>
+3. Best way to include .h files in multiple projects, rather than copying and pasting (UserInput.h)
+4. UserInput.h: Use of static template functions, unable to use .h file do define functions and .cpp file to implement them. 
+5. 

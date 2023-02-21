@@ -10,7 +10,6 @@
 	- https://isocpp.org/wiki/faq/templates#templates-defn-vs-decl
 
 */
-// Q&A: Using this helper class instead of just "free functions":
 
 #pragma once
 

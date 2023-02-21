@@ -4,4 +4,5 @@
 2. Difference between template <typename T> and template <class T>
 3. Best way to include .h files in multiple projects, rather than copying and pasting (UserInput.h)
 4. UserInput.h: Use of static template functions, unable to use .h file do define functions and .cpp file to implement them. 
-5. 
+5. UserInput.h: Better to use a reference inside function and set the variable inside the function, or to return a value?
+5. UserInput.h: Using a class with static funcionts instead of "free functions"

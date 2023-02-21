@@ -119,3 +119,4 @@ namespace UInput
 	}
 }
 
+#pragma once

@@ -1,4 +1,12 @@
-// https://www.w3schools.blog/random-in-range-c
+/*
+	CGSpectrum IGPC Cert T1
+	Week 04 Challenge 1 - Program that calculates number of iterations to randomnly pick
+	a user inputed number. Does it two ways: recursively and non-recursively. 
+	By: Kinan Turman. 2023
+
+	Used the following resource to calculate a random number between a range:
+	https://www.w3schools.blog/random-in-range-c
+*/
 
 #include <iostream>
 #include <stdlib.h>

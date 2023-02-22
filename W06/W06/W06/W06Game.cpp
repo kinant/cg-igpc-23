@@ -53,4 +53,6 @@ int main()
         NewGame.DrawGame();
     }
 
+    cout << "YOU BEAT THE LEVEL" << endl;
+
 }

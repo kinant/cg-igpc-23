@@ -8,7 +8,7 @@ constexpr char kPlayerSymbol = '@';
 
 int GetIndexFromCoordinates(const int X, const int Y, const int Width);
 void DrawLevel(const char Level[], const int Width, const int Height, const int PlayerX, const int PlayerY);
-void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY, bool& PlayerHasKey);
+bool UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY, bool& PlayerHasKey);
 
 int main() 
 {
@@ -37,13 +37,19 @@ int main()
     int PlayerY = 1;
 
     bool PlayerHasKey = false;
+    bool GameOver = false;
 
-    while (true) 
+    while (!GameOver) 
     {
         system("CLS");
         DrawLevel(LevelArray, kWidth, kHeight, PlayerX, PlayerY);
-        UpdatePlayerPosition(LevelArray, kWidth, PlayerX, PlayerY, PlayerHasKey);
+        GameOver = UpdatePlayerPosition(LevelArray, kWidth, PlayerX, PlayerY, PlayerHasKey);
     }
+
+    system("CLS");
+    DrawLevel(LevelArray, kWidth, kHeight, PlayerX, PlayerY);
+    cout << "YOU WON!!!";
+
 }
 
 int GetIndexFromCoordinates(int X, int Y, int Width)
@@ -70,7 +76,7 @@ void DrawLevel(const char Level[], const int Width, const int Height, const int 
     }
 }
 
-void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY, bool& PlayerHasKey)
+bool UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY, bool& PlayerHasKey)
 {
     char Input = _getch();
 
@@ -121,4 +127,20 @@ void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& Play
         PlayerX = NewPlayerX;
         PlayerY = NewPlayerY;
     }
+    else if (Level[Index] == 'D' && PlayerHasKey) 
+    {
+        PlayerHasKey = false;
+        Level[Index] = ' ';
+        PlayerX = NewPlayerX;
+        PlayerY = NewPlayerY;
+    }
+    else if (Level[Index] == 'X') 
+    {
+        Level[Index] = ' ';
+        PlayerX = NewPlayerX;
+        PlayerY = NewPlayerY;
+        return true;
+    }
+
+    return false;
 }

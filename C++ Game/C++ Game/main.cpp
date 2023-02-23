@@ -8,7 +8,7 @@ constexpr char kPlayerSymbol = '@';
 
 int GetIndexFromCoordinates(const int X, const int Y, const int Width);
 void DrawLevel(const char Level[], const int Width, const int Height, const int PlayerX, const int PlayerY);
-void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY);
+void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY, bool& PlayerHasKey);
 
 int main() 
 {
@@ -36,11 +36,13 @@ int main()
     int PlayerX = 1;
     int PlayerY = 1;
 
+    bool PlayerHasKey = false;
+
     while (true) 
     {
         system("CLS");
         DrawLevel(LevelArray, kWidth, kHeight, PlayerX, PlayerY);
-        UpdatePlayerPosition(LevelArray, kWidth, PlayerX, PlayerY);
+        UpdatePlayerPosition(LevelArray, kWidth, PlayerX, PlayerY, PlayerHasKey);
     }
 }
 
@@ -68,7 +70,7 @@ void DrawLevel(const char Level[], const int Width, const int Height, const int 
     }
 }
 
-void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY)
+void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& PlayerY, bool& PlayerHasKey)
 {
     char Input = _getch();
 
@@ -109,6 +111,13 @@ void UpdatePlayerPosition(char Level[], const int Width, int& PlayerX, int& Play
 
     if (Level[Index] == ' ') 
     {
+        PlayerX = NewPlayerX;
+        PlayerY = NewPlayerY;
+    }
+    else if (Level[Index] == '*') 
+    {
+        PlayerHasKey = true;
+        Level[Index] = ' ';
         PlayerX = NewPlayerX;
         PlayerY = NewPlayerY;
     }

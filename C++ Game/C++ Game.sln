@@ -5,6 +5,8 @@ VisualStudioVersion = 17.5.33414.496
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "C++ Game", "C++ Game\C++ Game.vcxproj", "{446ACF6A-F032-45CA-A68A-32F4B0DE46AF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LevelEditor", "LevelEditor\LevelEditor.vcxproj", "{0CE12188-5358-4193-9365-FEE063DFFE8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{446ACF6A-F032-45CA-A68A-32F4B0DE46AF}.Release|x64.Build.0 = Release|x64
 		{446ACF6A-F032-45CA-A68A-32F4B0DE46AF}.Release|x86.ActiveCfg = Release|Win32
 		{446ACF6A-F032-45CA-A68A-32F4B0DE46AF}.Release|x86.Build.0 = Release|Win32
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Debug|x64.ActiveCfg = Debug|x64
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Debug|x64.Build.0 = Debug|x64
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Debug|x86.ActiveCfg = Debug|Win32
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Debug|x86.Build.0 = Debug|Win32
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Release|x64.ActiveCfg = Release|x64
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Release|x64.Build.0 = Release|x64
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Release|x86.ActiveCfg = Release|Win32
+		{0CE12188-5358-4193-9365-FEE063DFFE8F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -15,8 +15,6 @@ using Input::UserInput;
 
 using namespace Level;
 
-const int FPS = 10;
-
 int main() 
 {
     constexpr FLevelDimensions LevelDimensions{ 25, 15 };

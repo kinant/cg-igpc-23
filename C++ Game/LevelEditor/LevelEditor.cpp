@@ -33,6 +33,8 @@ void DisplayRightBorder();
 
 bool EditLevel(char* pLelvel, int& CursorX, int& CursorY, const int Width, const int Height);
 
+void SaveLevel(*char pLevel, const int Width, const int Height);
+
 int main()
 {
 	int LevelWidth;

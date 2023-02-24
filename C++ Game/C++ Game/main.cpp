@@ -65,6 +65,7 @@ int main()
     PlayWinSound();
 
     delete[] LevelArray;
+    LevelArray = nullptr;
 }
 
 char* LoadLevel(string LevelName, int& Width, int& Height) 

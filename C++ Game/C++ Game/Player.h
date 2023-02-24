@@ -1,33 +1,37 @@
 #pragma once
 #include<iostream>
+#include<Windows.h>
+#include "AActor.h"
 
-using std::cout;
+// forward class declaration
+class Key;
 
 #include "Point.h"
 
-class Player 
-{	
-	private:
-		Point m_Position;
-		bool m_bHasKey;
+static constexpr char kPlayerSymbol = '@';
+constexpr int kStartingNumberOfLives = 3;
 
+class Player : public AActor
+{
 	public:
 		Player();
-		~Player();
 
-		int GetXPosition() const;
-		int GetYPosition() const;
-
-		void SetPosition(int X, int Y);
-
-		bool HasKey() const;
-		void PickupKey();
+		bool HasKey();
+		bool HasKey(int Color);
+		void PickupKey(Key* Key);
 		void UseKey();
+		void DropKey();
 
-		void Draw() const;
+		void AddMoney(int Money) { m_Money += Money; }
+		int GetMoney() { return m_Money; }
 
-		static constexpr char kPlayerSymbol = '@';
+		int GetLives() { return m_Lives };
+		void DecrementLives() { m_Lives--; }
 
-		int* GetXPositionPointer() { return &m_Position.X; }
-		int* GetYPositionPointer() { return &m_Position.Y; }
+		virtual void Draw() override;
+
+	private:
+		Key* m_pCurrentKey;
+		int m_Money;
+		int m_Lives;
 };

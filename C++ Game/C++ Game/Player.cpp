@@ -1,47 +1,40 @@
 #include "Player.h"
+#include "Key.h"
 
-Player::Player()
-	: m_bHasKey(false)
+Player::Player() 
+	: AActor(0, 0)
+	, m_pCurrentKey(nullptr)
+	, m_Money(0)
+	, m_Lives(kStartingNumberOfLives)
 {
 
 }
 
-Player::~Player() 
+bool Player::HasKey() 
 {
-
+	return (m_pCurrentKey != nullptr);
 }
 
-int Player::GetXPosition() const
+bool Player::HasKey(int Color) 
 {
-	return m_Position.X;
+	return (HasKey() && m_pCurrentKey->GetColor() == Color);
 }
 
-int Player::GetYPosition() const
+void Player::PickupKey(Key* Key) 
 {
-	return m_Position.Y;
+	m_pCurrentKey = Key;
 }
 
-void Player::SetPosition(int X, int Y) 
+void Player::DropKey() 
 {
-	m_Position.X = X;
-	m_Position.Y = Y;
+	if (m_pCurrentKey) 
+	{
+		m_pCurrentKey->Place(m_pPosition->X, m_pPosition->Y);
+		m_pCurrentKey = nullptr;
+	}
 }
 
-bool Player::HasKey() const
+void Player::Draw()
 {
-	return m_bHasKey;
-}
-void Player::PickupKey() 
-{
-	m_bHasKey = true;
-}
-
-void Player::UseKey() 
-{
-	m_bHasKey = false;
-}
-
-void Player::Draw() const
-{
-	cout << kPlayerSymbol;
+	std::cout << kPlayerSymbol;
 }

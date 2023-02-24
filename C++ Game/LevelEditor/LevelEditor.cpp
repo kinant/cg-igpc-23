@@ -1,9 +1,14 @@
 #include <iostream>
 #include <conio.h>
+#include <fstream>
 
 using std::cout;
 using std::cin;
 using std::endl;
+
+using std::string;
+
+using std::ofstream;
 
 constexpr char kCursor = '_';
 
@@ -33,7 +38,7 @@ void DisplayRightBorder();
 
 bool EditLevel(char* pLelvel, int& CursorX, int& CursorY, const int Width, const int Height);
 
-void SaveLevel(*char pLevel, const int Width, const int Height);
+void SaveLevel(char* pLevel, const int Width, const int Height);
 
 int main()
 {
@@ -64,8 +69,43 @@ int main()
 	system("CLS");
 	DisplayLevel(pLevel, LevelWidth, LevelHeight, -1, -1);
 
+	SaveLevel(pLevel, LevelWidth, LevelHeight);
+
 	delete[] pLevel;
 	pLevel = nullptr;
+}
+
+void SaveLevel(char* pLevel, const int Width, const int Height) 
+{
+	cout << "Please input file name to save level (eg. Level1.txt): ";
+
+	string LevelName;
+
+	cin >> LevelName;
+
+	LevelName.insert(0, "../");
+
+	ofstream LevelFile;
+	LevelFile.open(LevelName);
+
+	if (!LevelFile) 
+	{
+		cout << "Opening of Level File Failed!" << endl;
+	}
+	else 
+	{
+		LevelFile << Width << endl;
+		LevelFile << Height << endl;
+
+		LevelFile.write(pLevel, Width * Height);
+
+		if (!LevelFile) 
+		{
+			cout << "Writing to File Failed!" << endl;
+		}
+		
+		LevelFile.close();
+	}
 }
 
 bool EditLevel(char* pLelvel, int& CursorX, int& CursorY, const int Width, const int Height) 

@@ -28,6 +28,6 @@ class Player
 
 		static constexpr char kPlayerSymbol = '@';
 
-		int* GetXpositionPointer() { return &m_Position.X; }
-		int* GetYpositionPointer() { return &m_Position.Y; }
+		int* GetXPositionPointer() { return &m_Position.X; }
+		int* GetYPositionPointer() { return &m_Position.Y; }
 };

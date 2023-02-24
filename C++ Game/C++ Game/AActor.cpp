@@ -1,7 +1,7 @@
 #include "AActor.h"
 
 AActor::AActor(int X, int Y, int Color) 
-	: m_pPosition(new Point(x, y))
+	: m_pPosition(new Point(X, Y))
 	, m_bIsActive(true)
 	, m_Color(Color)
 {

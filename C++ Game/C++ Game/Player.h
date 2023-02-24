@@ -25,7 +25,7 @@ class Player : public AActor
 		void AddMoney(int Money) { m_Money += Money; }
 		int GetMoney() { return m_Money; }
 
-		int GetLives() { return m_Lives };
+		int GetLives() { return m_Lives; };
 		void DecrementLives() { m_Lives--; }
 
 		virtual void Draw() override;

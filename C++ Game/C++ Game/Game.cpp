@@ -75,7 +75,7 @@ bool Game::Update()
     }
     else if (m_Level.IsKey(NewPlayerX, NewPlayerY))
     {
-        m_Player.PickupKey();
+        // m_Player.PickupKey();
         m_Level.PickupKey(NewPlayerX, NewPlayerY);
         m_Player.SetPosition(NewPlayerX, NewPlayerY);
         //PlayKeyPickupSound();

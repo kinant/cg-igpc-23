@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <Windows.h>
 #include <fstream>
+#include "Level.h"
 
 using std::cout;
 using std::endl;
@@ -9,11 +10,6 @@ using std::string;
 using std::ifstream;
 
 constexpr char kPlayerSymbol = '@';
-
-constexpr char WAL = 219;
-constexpr char KEY = 232;
-constexpr char DOR = 179;
-constexpr char GOL = 36;
 
 constexpr int kOpenDoorColor = 10;
 constexpr int kClosedDoorColor = 12;
@@ -114,22 +110,22 @@ bool ConvertLevel(char* Level, const int Width, const int Height, int& PlayerX, 
                 case '-':
                 case '|': 
                 {
-                    Level[Index] = WAL;
+                    Level[Index] = Level::WAL;
                     break;
                 }
                 case '*':
                 {
-                    Level[Index] = KEY;
+                    Level[Index] = Level::KEY;
                     break;
                 }
                 case 'D':
                 {
-                    Level[Index] = DOR;
+                    Level[Index] = Level::DOR;
                     break;
                 }
                 case 'X':
                 {
-                    Level[Index] = GOL;
+                    Level[Index] = Level::GOL;
                     break;
                 }
                 case '@':
@@ -173,7 +169,7 @@ void DrawLevel(const char* Level, const int Width, const int Height, const int P
             const int Index = GetIndexFromCoordinates(X, Y, Width);
             HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-            if (Level[Index] == DOR) 
+            if (Level[Index] == Level::DOR) 
             {
                 if (PlayerHasKey) 
                 {
@@ -239,7 +235,7 @@ bool UpdatePlayerPosition(char* Level, const int Width, int& PlayerX, int& Playe
         PlayerX = NewPlayerX;
         PlayerY = NewPlayerY;
     }
-    else if (Level[Index] == KEY) 
+    else if (Level[Index] == Level::KEY) 
     {
         PlayerHasKey = true;
         Level[Index] = ' ';
@@ -247,7 +243,7 @@ bool UpdatePlayerPosition(char* Level, const int Width, int& PlayerX, int& Playe
         PlayerY = NewPlayerY;
         PlayKeyPickupSound();
     }
-    else if (Level[Index] == DOR && PlayerHasKey) 
+    else if (Level[Index] == Level::DOR && PlayerHasKey) 
     {
         PlayerHasKey = false;
         Level[Index] = ' ';
@@ -255,11 +251,11 @@ bool UpdatePlayerPosition(char* Level, const int Width, int& PlayerX, int& Playe
         PlayerY = NewPlayerY;
         PlayDoorOpenSound();
     }
-    else if (Level[Index] == DOR && !PlayerHasKey) 
+    else if (Level[Index] == Level::DOR && !PlayerHasKey) 
     {
         PlayDoorClosedSound();
     }
-    else if (Level[Index] == GOL) 
+    else if (Level[Index] == Level::GOL) 
     {
         Level[Index] = ' ';
         PlayerX = NewPlayerX;

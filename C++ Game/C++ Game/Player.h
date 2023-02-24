@@ -27,4 +27,7 @@ class Player
 		void Draw() const;
 
 		static constexpr char kPlayerSymbol = '@';
+
+		int* GetXpositionPointer() { return &m_Position.X; }
+		int* GetYpositionPointer() { return &m_Position.Y; }
 };

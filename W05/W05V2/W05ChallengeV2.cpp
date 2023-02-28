@@ -10,7 +10,6 @@
 */
 #include<iostream>
 #include <stdlib.h>
-#include <assert.h>
 
 using std::cout;
 using std::endl;
@@ -50,36 +49,31 @@ int main()
 	int Counter = 0;
 	int Max = 0;
 
-	string MaxSequence;
-
 	// recursive lambda function get the product of the digits in the counter
 	// https://artificial-mind.net/blog/2020/09/12/recursive-lambdas
 	auto Product = [](string Sequence, auto&& Product) -> int
 	{
 		if (Sequence.length() == 0) return 1;
-		// multiply 1st element of the string * recursively call the lambda funtion with the string reduced by that element
 		return CharToInt(Sequence[0]) * Product(Sequence.substr(1, Sequence.length() - 1), Product);
 	};
+
+	string MaxSequence;
+	string Sequence = ((string)kDigits).substr(Counter, INTS_TO_CALC);
 
 	// iterate while getting the next substring with length of INTS_TO_CALC (for this program it is 5, but can be changed)
 	// https://cplusplus.com/reference/string/string/substr/
 	//
-	while (((string)kDigits).substr(Counter, INTS_TO_CALC).length() == INTS_TO_CALC)
+	while (Sequence.length() == INTS_TO_CALC)
 	{
-		string Sequence = ((string)kDigits).substr(Counter, INTS_TO_CALC);
-
 		int Result = Product(Sequence, Product);
 
-		// check if new max
 		if (Max < Result)
 		{
 			Max = Result;
-
-			// get the string of the sequence of 5 digits that is the new max
-			// just using it as informative display in results output
 			MaxSequence = Sequence;
 		}
-		Counter++;
+		// Get next sequence
+		Sequence = ((string)kDigits).substr(Counter++, INTS_TO_CALC);
 	}
 
 	cout << "MAX PRODUCT OF SEQUENCE OF " << INTS_TO_CALC << " DIGITS(" << MaxSequence << ") IS: " << Max << endl;

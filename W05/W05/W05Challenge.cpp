@@ -1,3 +1,13 @@
+/*
+	CGSpectrum IGPC Cert T1
+	Week 05 Challenge 1 v2 - Find the greatest product of five consecutive digits in the 1000-digit number.
+	By: Kinan Turman. 2023
+
+	Used the following resources:
+	- https://stackoverflow.com/questions/439573/how-to-convert-a-single-char-into-an-int
+	- https://cplusplus.com/reference/string/string/substr/
+	- https://artificial-mind.net/blog/2020/09/12/recursive-lambdas
+*/
 #include<iostream>
 #include <stdlib.h>
 

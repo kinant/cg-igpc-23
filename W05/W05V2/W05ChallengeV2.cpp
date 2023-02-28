@@ -1,6 +1,6 @@
 /*
 	CGSpectrum IGPC Cert T1
-	Week 05 Challenge 1 - Find the greatest product of five consecutive digits in the 1000-digit number.
+	Week 05 Challenge 1 v2 - Find the greatest product of five consecutive digits in the 1000-digit number.
 	By: Kinan Turman. 2023
 
 	Used the following resources:
@@ -45,7 +45,6 @@ const char* kDigits = "\
 05886116467109405077541002256983155200055935729725\
 71636269561882670428252483600823257530420752963450";
 
-/* * Find the greatest product of five consecutive digits in the 1000-digit number.*/
 int main()
 {
 	int Counter = 0;

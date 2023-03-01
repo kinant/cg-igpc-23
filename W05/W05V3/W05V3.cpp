@@ -124,7 +124,7 @@ int main()
 * can be multiplied without resulting in a total product.
 * 
 * @param -	ValidIterationIndex: Reference to the index that will be used to start searching.
-*			Eventually it get's overriten to the index of the first digit valid iteration.
+*			Eventually it get's overriten to the index of the first digit of a valid iteration sequence.
 *
 * @param -	Product: reference to the product. Rather than return a product in this function, I
 *			decided to just pass a reference. Once the function is complete, the Product should be

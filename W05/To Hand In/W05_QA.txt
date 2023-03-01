@@ -1,0 +1,14 @@
+Week 05 - Q&A
+
+1. Lambda Functions and their uses. I used a recursive one in the project, with the help of an online resource, but I definitely do not understand how it works (especially the use of &&).
+2. Inline Functions. What are they and what are they used for?
+3. What is the final project for the course? Is it the Game Project from the videos?
+4. Can we modify final game project?
+5. Can we use other libraries for final game project (ie. raylib)
+
+Challenges:
+
+1. W05 Challenge - Finding the largest product of a sequence of 5 digits in a 1000 digit number. 
+I used string functions since I assumed the 1000 digit number is represented as a string or array of characters.
+
+2. W05 Challenge V2 - The same challenge, this time using a recursive lambda function. Less code and less efficient, but I wanted to learn about lambda functions. 

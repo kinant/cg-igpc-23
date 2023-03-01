@@ -68,6 +68,12 @@ int main()
 
 		// Get next sequence
 		Sequence = ((string)kDigits).substr(Counter++, INTS_TO_CALC);
+
+		cout << "SEQUENCE: " << Sequence << endl;
+		cout << "PRODUCT: " << NextProduct << endl;
+
+		if (Counter == 10) break;
+
 	}
 
 	cout << "MAX PRODUCT OF SEQUENCE OF 5 DIGITS (" << MaxSequence <<  ") IS: " << Max << endl;

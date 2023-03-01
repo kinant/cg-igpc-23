@@ -129,6 +129,9 @@
   <ItemGroup>
     <ClCompile Include="W05ChallengeV2.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="W05_QA.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

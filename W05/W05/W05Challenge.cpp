@@ -15,6 +15,13 @@ using std::cout;
 using std::endl;
 using std::string;
 
+// number of consecutive integers to get product of
+#define INTS_TO_CALC 5
+
+// macro used to aid in conversion from char to int
+// we have subtract '0' or 48
+#define CharToInt(chr) (chr - '0')
+
 const char* kDigits = "\
 73167176531330624919225119674426574742355349194934\
 96983520312774506326239578318016984801869478851843\
@@ -37,43 +44,59 @@ const char* kDigits = "\
 05886116467109405077541002256983155200055935729725\
 71636269561882670428252483600823257530420752963450";
 
-int GetProductSequence(const string Sequence);
+int GetProductFromSequence(const string Sequence);
 
-/* * Find the greatest product of five consecutive digits in the 1000-digit number.*/
 int main()
 {
 	int Counter = 0;
 	int Max = 0;
 
 	string MaxSequence;
+	string Sequence = ((string)kDigits).substr(Counter, INTS_TO_CALC);
 
-	while (((string)kDigits).substr(Counter, 5).length() == 5)
+	// iterate while getting the next substring with length of INTS_TO_CALC (for this program it is 5, but can be changed)
+	// https://cplusplus.com/reference/string/string/substr/
+	while (Sequence.length() == INTS_TO_CALC)
 	{
-		int NextProduct = GetProductSequence(((string)kDigits).substr(Counter, 5));
+		int NextProduct = GetProductFromSequence(Sequence);
 
 		if (Max < NextProduct) 
 		{
 			Max = NextProduct;
-			MaxSequence = ((string)kDigits).substr(Counter, 5);
+			MaxSequence = Sequence;
 		}
-		Counter++;
+
+		// Get next sequence
+		Sequence = ((string)kDigits).substr(Counter++, INTS_TO_CALC);
 	}
 
 	cout << "MAX PRODUCT OF SEQUENCE OF 5 DIGITS (" << MaxSequence <<  ") IS: " << Max << endl;
 }
 
-int GetProductSequence(const string Sequence)
+/*
+* Function - Get Product From Sequence
+*	Calculates and returns the product N integers in a sequence, N given by INTS_TO_CALC
+* 
+* @param Sequence - string sequence of digits
+* 
+* @return - the product of all the integers in a sequence
+*/
+int GetProductFromSequence(const string Sequence)
 {
 	int Product = 1;
 
-	if (Sequence.length() != 5) {
+	// check correct length
+	if (Sequence.length() != INTS_TO_CALC) {
 		return 0;
 	}
 
 	for (int i = 0; i < Sequence.length(); i++)
 	{
-		// https://stackoverflow.com/questions/439573/how-to-convert-a-single-char-into-an-int
-		Product *= (Sequence[i] - '0');
+		// check that it is a digit (ie. 0-9) and take the product
+		if (isdigit(Sequence[i]))
+		{
+			Product *= CharToInt(Sequence[i]);
+		}
 	}
 
 	return Product;

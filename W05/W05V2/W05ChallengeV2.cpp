@@ -76,5 +76,5 @@ int main()
 		Sequence = ((string)kDigits).substr(Counter++, INTS_TO_CALC);
 	}
 
-	cout << "MAX PRODUCT OF SEQUENCE OF " << INTS_TO_CALC << " DIGITS(" << MaxSequence << ") IS: " << Max << endl;
+	cout << "*V2* MAX PRODUCT OF SEQUENCE OF " << INTS_TO_CALC << " DIGITS(" << MaxSequence << ") IS: " << Max << endl;
 }

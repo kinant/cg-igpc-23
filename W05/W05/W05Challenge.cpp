@@ -69,10 +69,13 @@ int main()
 		// Get next sequence
 		Sequence = ((string)kDigits).substr(Counter++, INTS_TO_CALC);
 
+		cout << endl;
+		cout << Counter << endl;
 		cout << "SEQUENCE: " << Sequence << endl;
 		cout << "PRODUCT: " << NextProduct << endl;
+		cout << endl;
 
-		if (Counter == 10) break;
+		if (Counter == 22) break;
 
 	}
 

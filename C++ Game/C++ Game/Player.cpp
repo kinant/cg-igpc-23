@@ -25,6 +25,12 @@ void Player::PickupKey(Key* Key)
 	m_pCurrentKey = Key;
 }
 
+void Player::UseKey() 
+{
+	m_pCurrentKey->Remove();
+	m_pCurrentKey = nullptr;
+}
+
 void Player::DropKey() 
 {
 	if (m_pCurrentKey) 

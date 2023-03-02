@@ -23,4 +23,3 @@ void Door::Draw()
 	std::cout << "|";
 	SetConsoleTextAttribute(console, kRegularColor);
 }
-

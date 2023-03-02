@@ -6,15 +6,15 @@
 
 class Door : public AActor
 {
-	public:
-		Door(int X, int Y, int ClosedColor);
-		
-		virtual void Draw() override;
+public:
+	Door(int X, int Y, int ClosedColor);
 
-		bool IsOpen() { return m_bIsOpen; }
-		void Open() { m_bIsOpen = true; }
+	virtual void Draw() override;
 
-	private:
-		bool m_bIsOpen;
-		int m_ClosedColor;
-}
+	bool IsOpen() { return m_bIsOpen; }
+	void Open() { m_bIsOpen = true; }
+
+private:
+	bool m_bIsOpen;
+	int m_ClosedColor;
+};

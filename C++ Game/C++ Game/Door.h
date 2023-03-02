@@ -7,7 +7,7 @@
 class Door : public AActor
 {
 public:
-	Door(int X, int Y, int ClosedColor);
+	Door(int X, int Y, int ClosedColor, int OtherColor);
 
 	virtual void Draw() override;
 

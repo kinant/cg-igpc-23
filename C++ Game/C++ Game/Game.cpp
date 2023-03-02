@@ -91,7 +91,7 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
 {
     AActor* CollidedActor = m_Level.UpdateActors(NewPlayerX, NewPlayerY);
 
-    if (CollidedActor != nullptr * *CollidedActor->IsActive()) 
+    if (CollidedActor != nullptr && CollidedActor->IsActive()) 
     {
         
         Enemy* CollidedEnemy = dynamic_cast<Enemy*>(CollidedActor);

@@ -1,6 +1,6 @@
 #include "Door.h"
 
-Door::Door(int X, int Y, int ClosedColor)
+Door::Door(int X, int Y, int ClosedColor, int OtherColor)
 	: AActor(X, Y)
 	, m_bIsOpen(false)
 	, m_ClosedColor(ClosedColor)

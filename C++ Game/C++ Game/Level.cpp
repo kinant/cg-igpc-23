@@ -86,14 +86,14 @@ void Level::Draw() const
     COORD ActorCursorPosition;
 
     // Draw actors
-    for (auto Actor = m_pActors.begin(); Actor != m_pActors.end(); Actor++) 
+    for (auto Actor : m_pActors) 
     {
-        if (*(Actor)->IsActive()) 
+        if (Actor->IsActive()) 
         {
-            ActorCursorPosition.X = (*Actor)->GetXPosition();
-            ActorCursorPosition.Y = (*Actor)->GetYPosition();
+            ActorCursorPosition.X = Actor->GetXPosition();
+            ActorCursorPosition.Y = Actor->GetYPosition();
             SetConsoleCursorPosition(console, ActorCursorPosition);
-            (*Actor)->Draw();
+            Actor->Draw();
         }
     }
 }
@@ -171,7 +171,7 @@ bool Level::Convert(int* PlayerX, int* PlayerY)
             case '$':
             {
                 m_pLevelData[Index] = ' ';
-                m_pActors.push_back(new Money(X, Y, 1 + rand() % 5);
+                m_pActors.push_back(new Money(X, Y, 1 + rand() % 5));
                 break;
             }
             case '@':

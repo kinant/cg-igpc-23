@@ -59,12 +59,12 @@ bool Game::Update()
     else if ((Input == kArrowInput && ArrowInput == kUpArrow) ||
         (char)Input == 'W' || (char)Input == 'w')
     {
-        NewPlayerY++;
+        NewPlayerY--;
     }
     else if ((Input == kArrowInput && ArrowInput == kDownArrow) ||
-        (char)Input == 'D' || (char)Input == 'd')
+        (char)Input == 'S' || (char)Input == 's')
     {
-        NewPlayerY--;
+        NewPlayerY++;
     }
     else if (Input == kEscapeKey) 
     {
@@ -91,7 +91,7 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
 {
     AActor* CollidedActor = m_Level.UpdateActors(NewPlayerX, NewPlayerY);
 
-    if (CollidedActor != nullptr * *CollidedActor->IsActive()) 
+    if (CollidedActor != nullptr && CollidedActor->IsActive()) 
     {
         
         Enemy* CollidedEnemy = dynamic_cast<Enemy*>(CollidedActor);

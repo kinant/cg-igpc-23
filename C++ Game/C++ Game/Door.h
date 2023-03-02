@@ -13,8 +13,10 @@ public:
 
 	bool IsOpen() { return m_bIsOpen; }
 	void Open() { m_bIsOpen = true; }
+	int GetColor() { return m_ClosedColor;  }
 
 private:
 	bool m_bIsOpen;
 	int m_ClosedColor;
+	static constexpr char DOR = (char)219;
 };

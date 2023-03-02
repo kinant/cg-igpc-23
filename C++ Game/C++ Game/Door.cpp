@@ -20,6 +20,7 @@ void Door::Draw()
 	{
 		SetConsoleTextAttribute(console, m_ClosedColor);
 	}
-	std::cout << "|";
+	std::cout << DOR;
+
 	SetConsoleTextAttribute(console, kRegularColor);
 }

@@ -1,3 +1,9 @@
+/*
+	CGSpectrum IGPC Cert T1
+	Week 06 Challenge 01 - Find the greatest value in an array, no matter the size
+	By: Kinan Turman. 2023
+*/
+
 #include <iostream>
 #include <time.h>
 #include <assert.h>
@@ -7,92 +13,116 @@ using std::cin;
 using std::endl;
 
 template <typename T>
-void PopulateArray(T a[], int size);
+void PopulateArray(T A[], const int Size);
 
 template <typename T>
-void PrintArray(T a[], int size);
+void PrintArray(const T A[], const int Size);
 
 template <typename T>
-T GetMax(T a[], int size);
+T GetMax(const T A[], const int Size);
 
-double randomDouble()
-{
-	return (double)(1 + rand() % (1 + rand() % 200)) / (double)(1 + rand() % (1 + rand() % 10));
-}
+double RandomDouble();
 
 int main()
 {
 	srand((unsigned)time(0));
 
-	int sizeSmall = (3 + rand() % 10);
-	int sizeMedium = (25 + rand() % 50);
-	int sizeLarge = (50 + rand() % 100);
+	// get random sizes for arrays
+	int SizeSmall = (3 + rand() % 10);
+	int SizeMedium = (25 + rand() % 50);
+	int SizeLarge = (50 + rand() % 100);
 
-	double* ptArrayDouble = new double[sizeSmall];
-	PopulateArray<double>(ptArrayDouble, sizeSmall);
-	PrintArray<double>(ptArrayDouble, sizeSmall);
-
-	cout << endl;
-	cout << "Max Value of Above Array is: " << (double)GetMax(ptArrayDouble, sizeSmall) << endl;
-	cout << endl;
-
-	delete[] ptArrayDouble;
-	ptArrayDouble = nullptr;
-
-	float* ptArrayFloat = new float[sizeMedium];
-	PopulateArray<float>(ptArrayFloat, sizeMedium);
-	PrintArray<float>(ptArrayFloat, sizeMedium);
+	// create an array of doubles, populate it, print it and get the max value
+	double* pArrayDouble = new double[SizeSmall];
+	PopulateArray<double>(pArrayDouble, SizeSmall);
+	PrintArray<double>(pArrayDouble, SizeSmall);
 
 	cout << endl;
-	cout << "Max Value of Above Array is: " << (float)GetMax(ptArrayFloat, sizeMedium) << endl;
+	cout << "Max Value of Above Array is: " << (double)GetMax(pArrayDouble, SizeSmall) << endl;
 	cout << endl;
 
-	delete[] ptArrayFloat;
-	ptArrayFloat = nullptr;
+	delete[] pArrayDouble;
+	pArrayDouble = nullptr;
 
-	int* ptArrayInt = new int[sizeLarge];
-	PopulateArray<int>(ptArrayInt, sizeLarge);
-	PrintArray<int>(ptArrayInt, sizeLarge);
+	// create an array of floats, populate it, print it and get the max value
+	float* pArrayFloat = new float[SizeMedium];
+	PopulateArray<float>(pArrayFloat, SizeMedium);
+	PrintArray<float>(pArrayFloat, SizeMedium);
 
 	cout << endl;
-	cout << "Max Value of Above Array is: " << (int)GetMax(ptArrayInt, sizeLarge) << endl;
+	cout << "Max Value of Above Array is: " << (float)GetMax(pArrayFloat, SizeMedium) << endl;
 	cout << endl;
 
-	delete[] ptArrayInt;
-	ptArrayInt = nullptr;
+	delete[] pArrayFloat;
+	pArrayFloat = nullptr;
+
+	// create an array of ints, populate it, print it and get the max value
+	int* pArrayInt = new int[SizeLarge];
+	PopulateArray<int>(pArrayInt, SizeLarge);
+	PrintArray<int>(pArrayInt, SizeLarge);
+
+	cout << endl;
+	cout << "Max Value of Above Array is: " << (int)GetMax(pArrayInt, SizeLarge) << endl;
+	cout << endl;
+
+	delete[] pArrayInt;
+	pArrayInt = nullptr;
 }
 
-template<typename T>
-void PopulateArray(T* a, const int size)
+/*
+* Function - RandomDouble
+*	Generates a random double
+* 
+* @return - the randomnly generated double
+*/
+double RandomDouble() 
 {
-	if (size == 0)
+	return (double)(1 + rand() % (1 + rand() % 200)) / (double)(1 + rand() % (1 + rand() % 10));
+}
+
+/*
+* Function - Generic Function that populates an array with random values
+*
+* @param A - the Array to populate
+* @param Size - the size of the array
+*/
+template<typename T>
+void PopulateArray(T* A, const int Size)
+{
+	if (Size == 0)
 	{
 		return;
 	}
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < Size; i++)
 	{
-		T randValue = randomDouble();
-		a[i] = randValue;
+		T RandValue = RandomDouble();
+		A[i] = RandValue;
 	}
 }
 
+/*
+* Function - Generic Function that prints an array to console
+*
+* @param A - the Array to print
+* @param Size - the size of the array
+*/
 template<typename T>
-void PrintArray(T* a, const int size)
+void PrintArray(T* A, const int Size)
 {
 	cout << "======== PRINTING ARRAY ========" << endl;
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < Size; i++)
 	{
 		if (i % 5 == 0) {
 			cout << endl;
 		}
-		cout << a[i] << " ";
+		cout << A[i] << " ";
 
-		if (a[i] < 10) {
+		if (A[i] < 10) {
 			cout << "  ";
 		}
-		else if (a[i] < 100)
+		else if (A[i] < 100)
 		{
 			cout << " ";
 		}
@@ -102,19 +132,27 @@ void PrintArray(T* a, const int size)
 	cout << "==============================" << endl;
 }
 
+/*
+* Function - Generic Function that gets the max value of the elements in an array
+*
+* @param A - the Array to check
+* @param Size - the size of the array
+*
+* @return - the max value in the array
+*/
 template<typename T>
-T GetMax(T* a, int size)
+T GetMax(T* A, int Size)
 {
-	assert(size > 0);
-	T maxValue = a[0];
+	assert(Size > 0);
+	T MaxValue = A[0];
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < Size; i++)
 	{
-		if (maxValue < a[i])
+		if (MaxValue < A[i])
 		{
-			maxValue = a[i];
+			MaxValue = A[i];
 		}
 	}
 
-	return maxValue;
+	return MaxValue;
 }

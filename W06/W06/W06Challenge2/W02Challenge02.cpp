@@ -1,46 +1,64 @@
+/*
+	CGSpectrum IGPC Cert T1
+	Week 06 Challenge 02 - Find the N greatest values in an array of numbers.
+	It is basically a combination of this example: https://www.w3resource.com/cpp-exercises/array/cpp-array-exercise-2.php,
+	with this example: https://www.w3resource.com/cpp-exercises/array/cpp-array-exercise-4.php, without using sorting. 
+
+	By: Kinan Turman. 2023
+*/
 #include <iostream>
 #include <time.h>
+#include <assert.h>
 
 using std::cout;
 using std::endl;
 
 constexpr int kSize = 100;
+constexpr int kNValue = 5;
 
 int RandomInt();
-void PrintArray(const int Array[]);
+void PrintArray(const int MyArray[], const int Size);
+void LargestKElements(const int MyArray[]);
 
 int main()
 {
 	srand((unsigned)time(0));
 
-	// create and populate an array of 100 random digits
+	// create and populate an array of kSize random digits
 	int MyArray[kSize];
 
-	// rather than having to remember the size of the array
-	// we can: https://www.w3schools.com/cpp/cpp_arrays_size.asp
-	for (int i = 0; i < sizeof(MyArray) / sizeof(int); i++)
+	for (int i = 0; i < kSize; i++)
 	{
 		MyArray[i] = RandomInt();
 	}
 
-	PrintArray(MyArray);
+	PrintArray(MyArray, kSize);
+
+	LargestKElements(MyArray);
 }
 
-void PrintArray(const int A[])
+/*
+* Function - PrintArray
+*	Prints an array to console
+*
+* @param MyArray[] - array of integers to print to console
+* @param Size - the size of the array
+*/
+void PrintArray(const int MyArray[], const int Size)
 {
 	cout << "======== PRINTING ARRAY ========" << endl;
 
-	for (int i = 0; i < kSize; i++)
+	for (int i = 0; i < Size; i++)
 	{
 		if (i % 10 == 0) {
 			cout << endl;
 		}
-		cout << A[i] << " ";
+		cout << MyArray[i] << " ";
 
-		if (A[i] < 10) {
+		if (MyArray[i] < 10) {
 			cout << "  ";
 		}
-		else if (A[i] < 100)
+		else if (MyArray[i] < 100)
 		{
 			cout << " ";
 		}
@@ -50,7 +68,67 @@ void PrintArray(const int A[])
 	cout << "==============================" << endl;
 }
 
+/*
+* Function - RandomInt
+*	Generates a random int from 1 - 200
+* 
+* @return - the randomnly generated int
+*/
 int RandomInt()
 {
 	return (1 + rand() % (1 + rand() % 200));
+}
+
+/*
+* Function - RandomInt
+*	Finds the largest N Elements inside an array, given by kNValue
+*	Q&A: I tried using a dynamic array (declared and deleted inside the function), but it kept giving me errors.
+* 
+* @param MyArray - the Array to get the Nth Largest elements from
+* 
+* @return - the randomnly generated int
+*/
+void LargestKElements(const int MyArray[])
+{
+	// make sure we are not trying to get the largest N numbers where N > the size of the array
+	assert(kSize >= kNValue);
+
+	// declare and initialize the array to store all the largest N numbers
+	int Largest[kNValue]{ 0 };
+
+	// iterate over each element of the array
+	for (int i = 0; i < kSize; i++) 
+	{
+		// iterate over each of the current Largest numbers
+		for (int j = 0; j < kNValue; j++) {
+			
+			// if the value of the array at i is grater than the value if Largest at j
+			// then we have a new largest number
+			if (MyArray[i] > Largest[j])
+			{
+				// iterate over each element in largest
+				// making the last Gth Largest value take the value of the Gth-1 
+				// (basically bump them down, starting from the last value)
+				for (int g = (kNValue - 1); g > j; g--)
+				{
+					// make sure valid g values
+					// Q&A: for some reason, when I was using a dynamic array for Largest
+					// it would try access the element at -1, even though it shouldn't be possible
+					if ((g - 1) < 0 || g < 0) {
+						break;
+					}
+					else 
+					{
+						Largest[g] = Largest[g - 1];
+					}
+				}
+				// set the "new" largest value in the appropiate position
+				Largest[j] = MyArray[i];
+				break;
+			}
+		}
+	}
+
+	cout << "THE LARGEST " << kNValue << " ELEMENTS IN THE ARRAY: " << endl;
+	PrintArray(Largest, kNValue);
 }

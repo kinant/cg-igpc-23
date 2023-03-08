@@ -1,0 +1,7 @@
+1. W06Error.cpp:
+	- I am now running the same program on a different computer, no errors. Even with the safety checks I had implemented removed (which are still on W06Challenge02).
+	
+- I have attached a similar error message, this time done on purpose, but the message was the same. The only difference between the error done on purpose was that clicking on retry would point to delete[]. 
+	  
+2. Q&As:
+	- My one question was going to be about allocating and deleting pointers in a function, since that is where the error was ocurring, but now it is gone. 

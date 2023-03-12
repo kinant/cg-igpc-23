@@ -4,7 +4,8 @@ using std::cout;
 using std::cin;
 using std::endl;
 
-void PrintNumbers(int& numA, int& numB);
+void PrintNumbers(const int& numA, const int& numB);
+void PrintNumbersByPointer(int* numA, int* numB);
 void Swap(int* ptrA, int* ptrB);
 
 int main() 
@@ -27,12 +28,20 @@ int main()
 	cout << endl;
 
 	PrintNumbers(numA, numB);
+
+	PrintNumbersByPointer(&numA, &numB);
 }
 
-void PrintNumbers(int& numA, int& numB) 
+void PrintNumbers(const int& numA, const int& numB) 
 {
 	cout << "First number is: " << numA << endl;
 	cout << "Second number is: " << numB << endl;
+}
+
+void PrintNumbersByPointer(int* numA, int* numB) 
+{
+	cout << "First number is: " << *numA << endl;
+	cout << "Second number is: " << *numB << endl;
 }
 
 void Swap(int* ptrA, int* ptrB) 

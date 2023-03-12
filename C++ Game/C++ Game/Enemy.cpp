@@ -10,6 +10,14 @@ Enemy::Enemy(int X, int Y, int DeltaX, int DeltaY)
 	, m_MovementInY(DeltaY)
 {
 
+	if (m_MovementInX != 0)
+	{
+		m_DirectionX = 1;
+	}
+	if (m_CurrentMovementY != 0) 
+	{
+		m_DirectionY = 1;
+	}
 }
 
 void Enemy::Draw() 

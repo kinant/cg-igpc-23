@@ -2,6 +2,7 @@
 
 Game::Game()
 	: m_bIsGameOver(false)
+    , m_bUserQuit(false)
 {
 
 }
@@ -12,7 +13,7 @@ Game::~Game()
 
 bool Game::Load() 
 {
-	return m_Level.Load("Level1.txt", m_Player.GetXPositionPointer(), m_Player.GetYPositionPointer());
+	return m_Level.Load("Level2.txt", m_Player.GetXPositionPointer(), m_Player.GetYPositionPointer());
 }
 
 void Game::Run() 
@@ -170,7 +171,6 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
     }
 
     return false;
-
 }
 
 void Game::Draw() 

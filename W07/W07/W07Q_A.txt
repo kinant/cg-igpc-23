@@ -1,0 +1,154 @@
+1) How does the compiler/program know when a reference is passed?
+
+void PrintNumbers1(const int& numA, const int& numB) 
+{
+	cout << "First number is: " << numA << endl;
+	cout << "Second number is: " << numB << endl;
+}
+
+void PrintNumbers2(int numA, int numB) 
+{
+	cout << "First number is: " << numA << endl;
+	cout << "Second number is: " << numB << endl;
+}
+
+For example the above example, I call both functions by using similar code:
+int a = 8;
+int b = 10;
+
+PrintNumbers1(a, b);
+PrintNumbers2(a, b);
+
+Why is it not something like:
+PrintNumbers2(&a, &b); //?
+
+As I understand it, when we pass by reference, we are sending the memory address 
+of the variable and not it's value.  (Hence pass-by-refence, not pass-by-value)
+
+This adds to my confusion:
+
+void DoSomething4(int& a) 
+{
+	int* ptrExample = &a;
+
+	// These both print the value of a:
+	cout << "Do Something 4: " << *ptrExample << endl;
+	cout << "Do Something 4: " << a << endl;
+}
+
+2) I understand the basics, for example, of why pointers are used for dynamically allocated arrays.
+I do not understand why they would be used for other things. That light bulb hasn't clicked yet. 
+
+3) I have a hard time figuring out where to place the * or &?
+Examples:
+int* number;
+int *number;
+
+void DoSomething1(int& number){}
+void DoSomething2(int &number){}
+void DoSomething3(int & number){}
+
+For instance, this runs:
+#include <iostream>
+
+void DoSomething1(int& number);
+void DoSomething2(int &number);
+void DoSomething3(int & number);
+
+using std::cout;
+using std::endl;
+
+int main() 
+{
+	int num = 5;
+	DoSomething1(num);
+	DoSomething2(num);
+	DoSomething3(num);
+
+	int* number2 = &num;
+	int *number3 = &num;
+	
+	DoSomething1(*number2);
+}
+
+void DoSomething1(int& number) 
+{
+	cout << "Do something 1:" << number << endl;
+}
+void DoSomething2(int &number) 
+{
+	cout << "Do something 2:" << number << endl;
+}
+void DoSomething3(int & number) 
+{
+	cout << "Do Something 3: " << number << endl;
+}
+
+When I am working on my own project, I seem to get confused by it. As I understand, should be like so:
+int* number;
+int& number;
+int b = 5;
+
+-> int* c = &b
+-> void DoSomething(int& a){}
+
+(The above two is where I get confused. Why is it not void DoSomething(int &a))?
+
+Or for instance:
+
+void PrintNumbersByPointer(int* numA, int* numB) 
+{
+	cout << "First number is: " << *numA << endl;
+	cout << "Second number is: " << *numB << endl;
+}
+
+Yet I do sometimes see it differently or get confused as to how it is appropiate?
+I dont want to memorize the syntax, I want to understand why it is the way it is.
+For instance, I find myself correcting my code until it works. It just doesn't click
+with me for some reason. 
+
+3) Is this valid?
+
+//..
+int main()
+{
+	int* myIntArray = DoSomething5();
+	delete[] myIntArray;
+}
+
+//..
+int* DoSomething5() {
+	int* intArray = new int[5];
+
+	for (int i = 0; i < 5; i++) 
+	{
+		intArray[i] = (i + 1) * 3;
+	}
+
+	return intArray;
+}
+
+As in, what is delete "deleteing" here? Do I have a memory leak since I do not delete in the function call?
+
+5) What are the dangers of memory leaks? ie:
+
+int main() {
+	int* intArray = new int[5];
+
+	for (int i = 0; i < 5; i++)
+	{
+		intArray[i] = (i + 1) * 3;
+	}
+	return 0;
+}
+
+As in, I am not getting any errors or any indication that I did not delete the allocated memory.
+
+4) How can we check for memory leaks?
+
+5) How to decide between using pointers or references? How do we even decide if we need a pointer of a reference,
+in the case that it is not a dynamically allocated array?
+
+
+
+

@@ -231,7 +231,7 @@ AActor* Level::UpdateActors(int X, int Y)
 
     for (auto Actor = m_pActors.begin(); Actor != m_pActors.end(); Actor++) 
     {
-        (*Actor)->Update();
+        (*Actor)->Update(); // Update all actors
 
         if (X == (*Actor)->GetXPosition() && Y == (*Actor)->GetYPosition()) 
         {

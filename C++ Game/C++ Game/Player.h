@@ -26,6 +26,7 @@ class Player : public AActor
 		int GetLives() { return m_Lives; };
 		void DecrementLives() { m_Lives--; }
 
+		virtual ActorType GetType() override { return ActorType::Player; }
 		virtual void Draw() override;
 
 	private:

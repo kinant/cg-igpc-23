@@ -8,6 +8,8 @@ public:
 
 	virtual void Draw() override;
 
+	virtual ActorType GetType() override { return ActorType::Door; }
+
 	bool IsOpen() { return m_bIsOpen; }
 	void Open() { m_bIsOpen = true; }
 	ActorColor GetColor() { return m_ClosedColor;  }

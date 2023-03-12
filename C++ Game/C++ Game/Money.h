@@ -8,6 +8,7 @@ class Money : public AActor
 
 		int GetWorth() const { return m_Worth; }
 
+		virtual ActorType GetType() override { return ActorType::Money; }
 		virtual void Draw() override;
 
 	private:

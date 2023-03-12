@@ -22,7 +22,6 @@ class AActor
 		void SetPosition(int X, int Y);
 
 		int GetColor() { return m_Color; }
-
 		void Remove() { m_bIsActive = false; }
 		bool IsActive() { return m_bIsActive;  }
 		void Place(int X, int Y);

@@ -1,20 +1,6 @@
 #pragma once
-#include <conio.h>
-#include <Windows.h>
-#include <fstream>
-
 #include "Player.h"
 #include "Level.h"
-#include "Enemy.h"
-#include "Key.h"
-#include "Door.h"
-#include "Goal.h"
-#include "Money.h"
-
-using std::cout;
-using std::endl;
-using std::string;
-using std::ifstream;
 
 class Game 
 {

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Goal.h"
 
 Goal::Goal(int X, int Y) 

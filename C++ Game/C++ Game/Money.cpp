@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Money.h"
 
 Money::Money(int X, int Y, int Worth) 

@@ -1,3 +1,7 @@
+#include <fstream>
+#include <Windows.h>
+#include <assert.h>
+
 #include "Level.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -5,6 +9,13 @@
 #include "Door.h"
 #include "Goal.h"
 #include "Money.h"
+
+
+using std::cout;
+using std::cin;
+using std::endl;
+
+using std::ifstream;
 
 Level::Level()
 	: m_pLevelData(nullptr)
@@ -70,7 +81,7 @@ bool Level::Load(string LevelName, int* PlayerX, int* PlayerY)
 void Level::Draw() const
 {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(console, kRegularColor);
+    SetConsoleTextAttribute(console, (int)ActorColor::Regular);
 
     // Draw the level
     for (int y = 0; y < m_Height; y++) 
@@ -129,37 +140,37 @@ bool Level::Convert(int* PlayerX, int* PlayerY)
             case 'r':
             {
                 m_pLevelData[Index] = ' ';
-                m_pActors.push_back(new Key(X, Y, kRedColor));
+                m_pActors.push_back(new Key(X, Y, ActorColor::Red));
                 break;
             }
             case 'g':
             {
                 m_pLevelData[Index] = ' ';
-                m_pActors.push_back(new Key(X, Y, kGreenColor));
+                m_pActors.push_back(new Key(X, Y, ActorColor::Green));
                 break;
             }
             case 'b':
             {
                 m_pLevelData[Index] = ' ';
-                m_pActors.push_back(new Key(X, Y, kBlueColor));
+                m_pActors.push_back(new Key(X, Y, ActorColor::Blue));
                 break;
             }
             case 'R':
             {
                 m_pLevelData[Index] = ' ';
-                m_pActors.push_back(new Door(X, Y, kRedColor, kRedColorSolid));
+                m_pActors.push_back(new Door(X, Y, ActorColor::Red, ActorColor::SolidRed));
                 break;
             }
             case 'G':
             {
                 m_pLevelData[Index] = ' ';
-                m_pActors.push_back(new Door(X, Y, kGreenColor, kGreenColorSolid));
+                m_pActors.push_back(new Door(X, Y, ActorColor::Green, ActorColor::SolidGreen));
                 break;
             }
             case 'B':
             {
                 m_pLevelData[Index] = ' ';
-                m_pActors.push_back(new Door(X, Y, kBlueColor, kBlueColorSolid));
+                m_pActors.push_back(new Door(X, Y, ActorColor::Blue, ActorColor::SolidBlue));
                 break;
             }
             case 'X':

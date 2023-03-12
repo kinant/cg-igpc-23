@@ -1,18 +1,10 @@
 #pragma once
-#include <iostream>
-#include <fstream>
+#include<iostream>
 #include <vector>
-#include <Windows.h>
-#include <assert.h>
-
-using std::string;
-using std::cout;
-using std::cin;
-using std::endl;
-
-using std::ifstream;
 
 class AActor;
+
+using std::string;
 
 class Level 
 {

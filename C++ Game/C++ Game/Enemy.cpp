@@ -1,5 +1,7 @@
 #include "Enemy.h"
 
+#include <iostream>
+
 Enemy::Enemy(int X, int Y, int DeltaX, int DeltaY) 
 	: AActor(X, Y)
 	, m_CurrentMovementX(0)

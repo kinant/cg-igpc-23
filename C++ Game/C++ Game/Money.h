@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "AActor.h"
 
 class Money : public AActor 

@@ -1,11 +1,9 @@
 #pragma once
 #include "AActor.h"
-#include <iostream>
-#include <Windows.h>
 
 class Key : public AActor {
 	public:
-		Key(int X, int Y, int Color)
+		Key(int X, int Y, ActorColor Color)
 			: AActor(X, Y, Color) 
 		{
 		

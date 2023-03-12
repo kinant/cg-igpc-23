@@ -1,0 +1,2 @@
+1) dynamic<cast> (MODULE 9)
+2) static<cast> (MODULE 10)

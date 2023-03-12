@@ -1,4 +1,18 @@
 #include "Game.h"
+#include <conio.h>
+#include <Windows.h>
+#include <fstream>
+
+#include "Enemy.h"
+#include "Key.h"
+#include "Door.h"
+#include "Goal.h"
+#include "Money.h"
+
+using std::cout;
+using std::endl;
+using std::string;
+using std::ifstream;
 
 Game::Game()
 	: m_bIsGameOver(false)

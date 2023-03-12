@@ -1,3 +1,6 @@
+#include<iostream>
+#include<Windows.h>
+
 #include "Player.h"
 #include "Key.h"
 
@@ -15,7 +18,7 @@ bool Player::HasKey()
 	return (m_pCurrentKey != nullptr);
 }
 
-bool Player::HasKey(int Color) 
+bool Player::HasKey(ActorColor Color)
 {
 	return (HasKey() && m_pCurrentKey->GetColor() == Color);
 }

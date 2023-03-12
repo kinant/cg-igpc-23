@@ -1,11 +1,14 @@
+#include <iostream>
+#include <Windows.h>
+
 #include "Key.h"
 
 void Key::Draw() 
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
-	SetConsoleTextAttribute(console, m_Color);
+	SetConsoleTextAttribute(console, (int)m_Color);
 
 	std::cout << "+";
 
-	SetConsoleTextAttribute(console, kRegularColor);
+	SetConsoleTextAttribute(console, (int)ActorColor::Regular);
 }

@@ -1,6 +1,4 @@
 #pragma once
-#include<iostream>
-#include<Windows.h>
 #include "AActor.h"
 
 // forward class declaration
@@ -17,7 +15,7 @@ class Player : public AActor
 		Player();
 
 		bool HasKey();
-		bool HasKey(int Color);
+		bool HasKey(ActorColor Color);
 		void PickupKey(Key* Key);
 		void UseKey();
 		void DropKey();

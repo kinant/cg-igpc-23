@@ -4,6 +4,8 @@
 #include "Player.h"
 #include "Key.h"
 
+#include "AudioManager.h"
+
 Player::Player() 
 	: AActor(0, 0)
 	, m_pCurrentKey(nullptr)
@@ -40,6 +42,8 @@ void Player::DropKey()
 	{
 		m_pCurrentKey->Place(m_pPosition->X, m_pPosition->Y);
 		m_pCurrentKey = nullptr;
+
+		AudioManager::GetInstance()->PlayKeyPickupSound();
 	}
 }
 

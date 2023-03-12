@@ -10,6 +10,8 @@
 #include "Goal.h"
 #include "Money.h"
 
+#include "AudioManager.h"
+
 using std::cout;
 using std::endl;
 using std::string;
@@ -118,6 +120,8 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
                 Enemy* CollidedEnemy = dynamic_cast<Enemy*>(CollidedActor);
                 assert(CollidedEnemy);
                 
+                AudioManager::GetInstance()->PlayLoseLifeSound();
+
                 CollidedEnemy->Remove();
                 m_Player.SetPosition(NewPlayerX, NewPlayerY);
 
@@ -139,6 +143,8 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
                 m_Player.AddMoney(CollidedMoney->GetWorth());
                 m_Player.SetPosition(NewPlayerX, NewPlayerY);
                 
+                AudioManager::GetInstance()->PlayMoneySound();
+
                 break;
             }
             case ActorType::Key:
@@ -151,7 +157,7 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
                     m_Player.PickupKey(CollidedKey);
                     CollidedKey->Remove();
                     m_Player.SetPosition(NewPlayerX, NewPlayerY);
-                    //PlayKeyPickupSound();
+                    AudioManager::GetInstance()->PlayKeyPickupSound();
                 }
                 
                 break;
@@ -169,11 +175,12 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
                         CollidedDoor->Remove();
                         m_Player.UseKey();
                         m_Player.SetPosition(NewPlayerX, NewPlayerY);
-                        //PlayDoorOpenSound();
+
+                        AudioManager::GetInstance()->PlayDoorOpenSound();
                     }
                     else
                     {
-                        //PlayDoorClosedSound();
+                        AudioManager::GetInstance()->PlayDoorClosedSound();
                     }
                 }
                 else
@@ -204,7 +211,7 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
     }
     else if (m_Level.IsWall(NewPlayerX, NewPlayerY)) 
     {
-        // wall collision, do nothing
+        AudioManager::GetInstance()->PlayDoorClosedSound();
     }
 
     return bIsGameDone;

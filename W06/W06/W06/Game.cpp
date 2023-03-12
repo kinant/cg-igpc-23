@@ -1,7 +1,4 @@
 #include "Game.h"
-#include "UserInput.h"
-
-using Input::UserInput;
 
 Game::Game(APlayer* Player, Level::FLevel* Level)
 {
@@ -68,23 +65,66 @@ void Game::UpdatePlayerPosition()
     }
 }
 
-void Game::DrawGame()
+void Game::Render() 
 {
-    system("CLS");
+    DrawLevel();
+    DrawPlayer();
+}
 
-    for (int y = 0; y < MLevel->Dimensions.Height; y++) 
+void Game::DrawLevel()
+{
+    int screenHeight = MLevel->Dimensions.Width * MAP_TILE_SIZE;
+    int screenWidth = MLevel->Dimensions.Height * MAP_TILE_SIZE;
+
+    BeginDrawing();
+
+    ClearBackground(RAYWHITE);
+
+    for (unsigned int y = 0; y < MLevel->Level.size(); y++)
     {
-        for (int x = 0; x < MLevel->Dimensions.Width; x++) 
+        for (unsigned int x = 0; x < MLevel->Level[y].size(); x++)
         {
-            if (x == MPlayer->GetPosition().X && y == MPlayer->GetPosition().Y) 
+            switch (MLevel->Level[y][x])
             {
-                cout << MPlayer->PlayerIcon;
-                continue;
-            }
-            cout << MLevel->Level[y][x];
+                case '0':
+                {
+                    break;
+                }
+                case '#':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CWalls);
+                    break;
+                }
+                case 'D':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CDoor);
+                    break;
+                }
+                case 'X':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CGoal);
+                    break;
+                }
+                case '*':
+                {
+                    DrawRectangle(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, CKey);
+                    break;
+                }
+                default:
+                    break;
+                }
+            DrawRectangleLines(x * MAP_TILE_SIZE, y * MAP_TILE_SIZE, MAP_TILE_SIZE, MAP_TILE_SIZE, Fade(CWalls, 0.5f));
         }
-        cout << endl;
     }
+
+    EndDrawing();
+    //----------------------------------------------------------------------------------
+}
+
+void Game::DrawPlayer() 
+{
+    // Draw tiles from id (and tile borders)
+    DrawCircle(MPlayer->GetPosition().X * MAP_TILE_SIZE + (MAP_TILE_SIZE / 2), MPlayer->GetPosition().Y * MAP_TILE_SIZE + (MAP_TILE_SIZE / 2), PLAYER_SIZE / 2, RED);
 }
 
 bool Game::IsGameDone() const

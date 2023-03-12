@@ -4,9 +4,8 @@ namespace Map
 {
     enum class EMapTile
     {
-        Empty = 32,
-        HWall = 45,
-        VWall = 124,
+        Empty = 48,
+        Wall = 35,
         Key = 42,
         Door = 68,
         Goal = 88,

@@ -1,52 +1,78 @@
+#pragma once
+
 #include <iostream>
 #include <string>
 #include<limits>
 
-#ifndef USER_INPUT_H
-#define USER_INPUT_H
+using std::string;
+using std::cout;
+using std::cin;
+using std::endl;
 
-static const std::string ERROR_MESSAGE_GENERAL = "Invalid input. Try again:";
-
-class InputValidator
+namespace UInput 
 {
-public:
-	
+	static const std::string ERROR_MESSAGE_GENERAL = "Invalid input. Try again: ";
+	static const std::string ERROR_MESSAGE_BOUNDS = "Input is out of bounds. Try again: ";
 
-	template<class T> static void GenericUserInput(T& input, std::string promptMessage);
-	
-	template<class T> static void GenericUserInput(T& input, std::string promptMessage, 
-		const int& min, const int& max);
-
-private:
-
-	static void ClearCin() 
+	class UserInput
 	{
-		std::cin.clear();
-		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		public:
+			template<typename T> static void GenericUserInput(T& input, string promptMessage);
+
+			template<typename T> static void GenericUserInput(T& input, string promptMessage,
+				const int& min, const int& max);
+
+		private:
+
+			static void ClearCin()
+			{
+				cin.clear();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			}
+	};
+
+	template<typename T>
+	void UserInput::GenericUserInput(T& input, string promptMessage)
+	{
+		cout << promptMessage;
+
+		while (!(cin >> input))
+		{
+			ClearCin();
+			cout << ERROR_MESSAGE_GENERAL;
+		}
 	}
-};
 
-template<class T>
-void InputValidator::GenericUserInput(T& input, std::string promptMessage)
-{
-	std::cout << promptMessage;
-
-	while (!(std::cin >> input))
+	template<typename T>
+	void UserInput::GenericUserInput(T& input, std::string promptMessage, const int& min, const int& max)
 	{
-		ClearCin();
-		std::cout << ERROR_MESSAGE_GENERAL;
+		std::cout << promptMessage << " between " << min << " and " << max << ": ";
+
+		bool bIsValidInput = false;
+
+		while (!bIsValidInput)
+		{
+			cin >> input;
+
+			if (cin.fail()) 
+			{
+				ClearCin();
+				cout << ERROR_MESSAGE_GENERAL;
+				bIsValidInput = false;
+				continue;
+			}
+			else if (input < min || input > max) 
+			{
+				cout << ERROR_MESSAGE_BOUNDS;
+				ClearCin();
+				bIsValidInput = false;
+				continue;
+			}
+			else 
+			{
+				bIsValidInput = true;
+			}
+		}
 	}
 }
 
-template<class T>
-inline void InputValidator::GenericUserInput(T& input, std::string promptMessage, const int& min, const int& max)
-{
-	std::cout << promptMessage;
-
-	while (!(std::cin >> input) || (input < min || input > max))
-	{
-		ClearCin();
-		std::cout << ERROR_MESSAGE_GENERAL;
-	}
-}
-#endif

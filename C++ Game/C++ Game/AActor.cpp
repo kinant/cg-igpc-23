@@ -14,33 +14,33 @@ AActor::~AActor()
 	m_pPosition = nullptr;
 }
 
-int AActor::GetXPosition() 
+int AActor::GetXPosition() const
 {
 	return m_pPosition->X;
 }
 
-int AActor::GetYPosition() 
+int AActor::GetYPosition() const
 {
 	return m_pPosition->Y;
 }
 
-int* AActor::GetXPositionPointer() 
+int* AActor::GetXPositionPointer() const
 {
 	return &(m_pPosition->X);
 }
 
-int* AActor::GetYPositionPointer() 
+int* AActor::GetYPositionPointer() const
 {
 	return &(m_pPosition->Y);
 }
 
-void AActor::SetPosition(int X, int Y) 
+void AActor::SetPosition(const int X, const int Y) 
 {
 	m_pPosition->X = X;
 	m_pPosition->Y = Y;
 }
 
-void AActor::Place(int X, int Y) 
+void AActor::Place(const int X, const int Y) 
 {
 	AActor::SetPosition(X, Y);
 	m_bIsActive = true;

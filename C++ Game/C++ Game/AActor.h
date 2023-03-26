@@ -28,17 +28,17 @@ class AActor
 		AActor(int X, int Y, ActorColor = ActorColor::Regular);
 		virtual ~AActor();
 
-		int GetXPosition();
-		int GetYPosition();
-		int* GetXPositionPointer();
-		int* GetYPositionPointer();
-		void SetPosition(int X, int Y);
+		int GetXPosition() const;
+		int GetYPosition() const;
+		int* GetXPositionPointer() const;
+		int* GetYPositionPointer() const;
+		void SetPosition(const int X, const int Y);
 
-		ActorColor GetColor() { return m_Color; }
+		ActorColor GetColor() const { return m_Color; }
 
 		void Remove() { m_bIsActive = false; }
 		bool IsActive() { return m_bIsActive;  }
-		void Place(int X, int Y);
+		void Place(const int X, const int Y);
 
 		virtual ActorType GetType() = 0;
 		virtual void Draw() = 0;

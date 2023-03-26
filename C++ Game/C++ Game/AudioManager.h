@@ -27,33 +27,33 @@ class AudioManager
 			delete s_pInstance;
 			s_pInstance = nullptr;
 		}
-		void PlayDoorClosedSound() 
+		void PlayDoorClosedSound() const
 		{
 			Beep(500, 75);
 			Beep(500, 75);
 		}
 
-		void PlayDoorOpenSound() 
+		void PlayDoorOpenSound() const 
 		{
 			Beep(1397, 200);
 		}
 
-		void PlayKeyPickupSound() 
+		void PlayKeyPickupSound() const
 		{
 			Beep(1568, 200);
 		}
 
-		void PlayMoneySound() 
+		void PlayMoneySound() const
 		{
 			Beep(1568, 50);
 		}
 
-		void PlayLoseLifeSound()
+		void PlayLoseLifeSound() const
 		{
 			Beep(200, 100);
 		}
 
-		void PlayLoseSound() 
+		void PlayLoseSound() const
 		{
 			Beep(500, 75);
 			Beep(500, 75);
@@ -61,7 +61,7 @@ class AudioManager
 			Beep(500, 75);
 		}
 
-		void PlayWinSound() 
+		void PlayWinSound() const
 		{
 			Beep(1568, 200);
 			Beep(1568, 200);

@@ -14,20 +14,20 @@ class Player : public AActor
 	public:
 		Player();
 
-		bool HasKey();
-		bool HasKey(ActorColor Color);
+		bool HasKey() const;
+		bool HasKey(const ActorColor Color) const;
 		void PickupKey(Key* Key);
 		void UseKey();
 		void DropKey();
 
-		void AddMoney(int Money) { m_Money += Money; }
-		int GetMoney() { return m_Money; }
+		void AddMoney(const int Money) { m_Money += Money; }
+		int GetMoney() const { return m_Money; }
 
-		int GetLives() { return m_Lives; };
+		int GetLives() const { return m_Lives; };
 		void DecrementLives() { m_Lives--; }
 
-		virtual ActorType GetType() override { return ActorType::Player; }
-		virtual void Draw() override;
+		virtual ActorType GetType() const override { return ActorType::Player; }
+		virtual void Draw() const override;
 
 	private:
 		Key* m_pCurrentKey;

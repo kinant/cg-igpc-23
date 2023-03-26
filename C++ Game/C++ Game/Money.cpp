@@ -1,13 +1,13 @@
 #include <iostream>
 #include "Money.h"
 
-Money::Money(int X, int Y, int Worth) 
+Money::Money(const int X, const int Y, const int Worth) 
 	: AActor(X, Y)
 	, m_Worth(Worth)
 {
 }
 
-void Money::Draw() 
+void Money::Draw() const 
 {
 	std::cout << "$";
 }

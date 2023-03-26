@@ -15,12 +15,12 @@ Player::Player()
 
 }
 
-bool Player::HasKey() 
+bool Player::HasKey() const
 {
 	return (m_pCurrentKey != nullptr);
 }
 
-bool Player::HasKey(ActorColor Color)
+bool Player::HasKey(const ActorColor Color) const
 {
 	return (HasKey() && m_pCurrentKey->GetColor() == Color);
 }
@@ -47,7 +47,7 @@ void Player::DropKey()
 	}
 }
 
-void Player::Draw()
+void Player::Draw() const
 {
 	std::cout << kPlayerSymbol;
 }

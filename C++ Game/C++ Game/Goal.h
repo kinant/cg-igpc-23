@@ -4,8 +4,8 @@
 class Goal : public AActor 
 {
 	public:
-		Goal(int X, int Y);
+		Goal(const int X, const int Y);
 		
-		virtual ActorType GetType() override { return ActorType::Goal; }
-		virtual void Draw() override;
+		virtual ActorType GetType() const override { return ActorType::Goal; }
+		virtual void Draw() const override;
 };

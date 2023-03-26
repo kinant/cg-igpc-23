@@ -4,15 +4,15 @@
 class Door : public AActor
 {
 public:
-	Door(int X, int Y, ActorColor ClosedColor, ActorColor OtherColor);
+	Door(const int X, const int Y, const ActorColor ClosedColor, const ActorColor OtherColor);
 
-	virtual void Draw() override;
+	virtual void Draw() const override;
 
-	virtual ActorType GetType() override { return ActorType::Door; }
+	virtual ActorType GetType() const override { return ActorType::Door; }
 
-	bool IsOpen() { return m_bIsOpen; }
+	bool IsOpen() const { return m_bIsOpen; }
 	void Open() { m_bIsOpen = true; }
-	ActorColor GetColor() { return m_ClosedColor;  }
+	ActorColor GetColor() const { return m_ClosedColor;  }
 
 private:
 	bool m_bIsOpen;

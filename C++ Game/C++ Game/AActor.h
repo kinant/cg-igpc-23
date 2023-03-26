@@ -40,8 +40,8 @@ class AActor
 		bool IsActive() { return m_bIsActive;  }
 		void Place(const int X, const int Y);
 
-		virtual ActorType GetType() = 0;
-		virtual void Draw() = 0;
+		virtual ActorType GetType() const = 0;
+		virtual void Draw() const = 0;
 		virtual void Update() 
 		{
 			

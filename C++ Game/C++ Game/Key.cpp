@@ -3,7 +3,7 @@
 
 #include "Key.h"
 
-void Key::Draw() 
+void Key::Draw() const
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 	SetConsoleTextAttribute(console, (int)m_Color);

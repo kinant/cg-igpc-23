@@ -3,7 +3,7 @@
 
 #include "Door.h"
 
-Door::Door(int X, int Y, ActorColor ClosedColor, ActorColor OtherColor)
+Door::Door(const int X, const int Y, const ActorColor ClosedColor, const ActorColor OtherColor)
 	: AActor(X, Y)
 	, m_bIsOpen(false)
 	, m_ClosedColor(ClosedColor)
@@ -11,7 +11,7 @@ Door::Door(int X, int Y, ActorColor ClosedColor, ActorColor OtherColor)
 
 }
 
-void Door::Draw()
+void Door::Draw() const
 {
 	HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 	

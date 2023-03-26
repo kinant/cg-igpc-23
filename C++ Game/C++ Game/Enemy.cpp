@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-Enemy::Enemy(int X, int Y, int DeltaX, int DeltaY) 
+Enemy::Enemy(const int X, const int Y, const int DeltaX, const int DeltaY) 
 	: AActor(X, Y)
 	, m_CurrentMovementX(0)
 	, m_CurrentMovementY(0)
@@ -22,7 +22,7 @@ Enemy::Enemy(int X, int Y, int DeltaX, int DeltaY)
 	}
 }
 
-void Enemy::Draw() 
+void Enemy::Draw() const
 {
 	std::cout << (char) 153;
 }
@@ -41,7 +41,7 @@ void Enemy::Update()
 	this->SetPosition(m_pPosition->X + m_DirectionX, m_pPosition->Y + m_DirectionY);
 }
 
-void Enemy::UpdateDirection(int& Current, int& Direction, int& Movement) 
+void Enemy::UpdateDirection(int& Current, int& Direction, const int& Movement) 
 {
 	Current += Direction;
 

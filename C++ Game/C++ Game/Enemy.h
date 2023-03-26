@@ -4,10 +4,10 @@
 class Enemy : public AActor 
 {
 	public:
-		Enemy(int X, int Y, int DeltaX = 0, int DeltaY = 0);
+		Enemy(const int X, const int Y, const int DeltaX = 0, const int DeltaY = 0);
 
-		virtual ActorType GetType() override { return ActorType::Enemy; }
-		virtual void Draw() override;
+		virtual ActorType GetType() const override { return ActorType::Enemy; }
+		virtual void Draw() const override;
 		virtual void Update() override;
 
 	private:
@@ -20,5 +20,5 @@ class Enemy : public AActor
 		int m_DirectionX;
 		int m_DirectionY;
 
-		void UpdateDirection(int& Current, int& Direction, int& Movement);
+		void UpdateDirection(int& Current, int& Direction, const int& Movement);
 };

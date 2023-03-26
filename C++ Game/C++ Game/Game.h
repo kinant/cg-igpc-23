@@ -11,10 +11,10 @@ class Game
 		bool Load();
 		void Run();
 
-		bool IsGameOver();
-		bool DidUserQuit() { return m_bUserQuit; }
+		bool IsGameOver() const;
+		bool DidUserQuit() const { return m_bUserQuit; }
 
-		int GetPlayerLives() { return m_Player.GetLives(); }
+		int GetPlayerLives() const { return m_Player.GetLives(); }
 
 	private:
 		static constexpr int kOpenDoorColor = 10;
@@ -35,7 +35,7 @@ class Game
 		bool m_bUserQuit;
 
 		bool Update();
-		void Draw();
+		void Draw() const;
 
-		bool HandleCollision(int PlayerX, int PlayerY);
+		bool HandleCollision(const int PlayerX, const int PlayerY);
 };

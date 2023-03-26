@@ -45,7 +45,7 @@ void Game::Run()
 	}
 }
 
-bool Game::IsGameOver() 
+bool Game::IsGameOver() const
 {
 	return m_bIsGameOver;
 }
@@ -65,22 +65,22 @@ bool Game::Update()
     }
 
     if ((Input == kArrowInput && ArrowInput == kLeftArrow) ||
-        (char)Input == 'A' || (char)Input == 'a') 
+        static_cast<char>(Input) == 'A' || static_cast<char>(Input) == 'a')
     {
         NewPlayerX--;
     }
     else if ((Input == kArrowInput && ArrowInput == kRightArrow) ||
-        (char)Input == 'D' || (char)Input == 'd')
+        static_cast<char>(Input) == 'D' || static_cast<char>(Input) == 'd')
     {
         NewPlayerX++;
     }
     else if ((Input == kArrowInput && ArrowInput == kUpArrow) ||
-        (char)Input == 'W' || (char)Input == 'w')
+        static_cast<char>(Input) == 'W' || static_cast<char>(Input) == 'w')
     {
         NewPlayerY--;
     }
     else if ((Input == kArrowInput && ArrowInput == kDownArrow) ||
-        (char)Input == 'S' || (char)Input == 's')
+        static_cast<char>(Input) == 'S' || static_cast<char>(Input) == 's')
     {
         NewPlayerY++;
     }
@@ -89,7 +89,7 @@ bool Game::Update()
         m_bUserQuit = true;
         return true;
     }
-    else if ((char)Input == 'Z' || (char)Input == 'z')
+    else if (static_cast<char>(Input) == 'Z' || static_cast<char>(Input) == 'z')
     {
         m_Player.DropKey();
     }
@@ -105,7 +105,7 @@ bool Game::Update()
     }
 }
 
-bool Game::HandleCollision(int NewPlayerX, int NewPlayerY) 
+bool Game::HandleCollision(const int NewPlayerX, const int NewPlayerY)
 {
     bool bIsGameDone = false;
 
@@ -217,7 +217,7 @@ bool Game::HandleCollision(int NewPlayerX, int NewPlayerY)
     return bIsGameDone;
 }
 
-void Game::Draw() 
+void Game::Draw() const
 {
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     system("CLS");
